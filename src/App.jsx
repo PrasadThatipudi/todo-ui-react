@@ -1,6 +1,6 @@
 import Input from "./components/input";
 import "./styles/App.css";
-import Task from "./components/task.jsx";
+import TaskContainer from "./components/task-container.jsx";
 import { useState } from "react";
 
 function App() {
@@ -17,11 +17,7 @@ function App() {
         }
       />
 
-      <div>
-        {tasks.map((task, index) => (
-          <Task key={index} description={task.description} done={task.done} />
-        ))}
-      </div>
+      <TaskContainer tasks={tasks} />
     </div>
   );
 }
