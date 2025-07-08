@@ -1,7 +1,9 @@
+import "./task.css";
+
 function Task(props) {
   return (
     <div className="task">
-      <p>{props.description}</p>
+      <p className={props.done ? "done" : "undone"}>{props.description}</p>
       <button>Delete</button>
     </div>
   );
