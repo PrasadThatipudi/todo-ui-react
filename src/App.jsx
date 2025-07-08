@@ -1,13 +1,7 @@
 import "./App.css";
+import Task from "./task";
 
 function App() {
-  return (
-    <div className="App">
-      <h1>Todo App</h1>
-      <p>Welcome to the Todo App!</p>
-      <p>Start managing your tasks efficiently.</p>
-    </div>
-  );
+  return <Task description="Task1" />;
 }
-
 export default App;
