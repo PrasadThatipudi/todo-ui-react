@@ -27,6 +27,7 @@ const addTask = (state, action) => {
     return todo;
   });
 };
+
 const toggleTask = (state, action) => {
   return state.map((todo) => {
     if (todo.id === action.payload.todoId) {
