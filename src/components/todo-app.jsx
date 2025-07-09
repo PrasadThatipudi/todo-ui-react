@@ -1,11 +1,12 @@
 import TabBar from "./tab-bar.jsx";
 import TaskContainer from "./task-container.jsx";
-import { useState } from "react";
+import { useState, useReducer } from "react";
 import "../styles/index.css";
+import reducer from "../reducer.jsx";
 
-function TodoApp() {
+const TodoApp = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const [todos, setTodos] = useState([
+  const [todos, dispatch] = useReducer(reducer, [
     {
       id: 0,
       title: "Shopping",
@@ -18,14 +19,18 @@ function TodoApp() {
     <div className="app-layout">
       <div className="app-shell">
         <div className="app-tabs">
-          <TabBar allTitles={todos.map((todo) => todo.title)} />
+          <TabBar
+            titles={todos.map((todo) => todo.title)}
+            setActiveTab={(index) => setActiveTab(index)}
+            dispatch={dispatch}
+          />
         </div>
         <div className="app-tasks">
-          <TaskContainer tasks={todos[activeTab].tasks} />
+          <TaskContainer tasks={todos[activeTab].tasks} dispatch={dispatch} />
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default TodoApp;

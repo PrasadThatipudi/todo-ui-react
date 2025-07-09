@@ -1,7 +1,14 @@
-function Tab(props) {
+const Tab = (props) => {
   const { title, isActive } = props;
-  
-  return <button className={`tab${isActive ? " active" : ""}`}>{title}</button>;
-}
+
+  return (
+    <button
+      className={`tab ${isActive ? " active" : ""}`}
+      onClick={props.onClick}
+    >
+      {title}
+    </button>
+  );
+};
 
 export default Tab;

@@ -1,6 +1,6 @@
 import "../styles/task.css";
 
-function Task(props) {
+const Task = (props) => {
   const { done, description } = props;
   return (
     <div className="task">
@@ -10,6 +10,6 @@ function Task(props) {
       <button className="task-delete-btn">Delete</button>
     </div>
   );
-}
+};
 
 export default Task;

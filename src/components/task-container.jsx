@@ -1,7 +1,7 @@
 import Task from "./task";
 import Input from "./input";
 
-function TaskContainer(props) {
+const TaskContainer = (props) => {
   return (
     <div className="task-container">
       <Input
@@ -20,6 +20,6 @@ function TaskContainer(props) {
       </div>
     </div>
   );
-}
+};
 
 export default TaskContainer;

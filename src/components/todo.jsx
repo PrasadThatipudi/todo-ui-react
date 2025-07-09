@@ -1,7 +1,7 @@
 import TaskContainer from "./task-container";
 import Input from "./input";
 
-function Todo(props) {
+const Todo = (props) => {
   return (
     <div>
       <Input onSubmit={props.addTask} />
@@ -9,6 +9,6 @@ function Todo(props) {
       <TaskContainer tasks={props.tasks} />
     </div>
   );
-}
+};
 
 export default Todo;

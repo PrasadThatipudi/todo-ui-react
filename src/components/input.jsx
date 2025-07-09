@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Input(props) {
+const Input = (props) => {
   const [value, setValue] = useState("");
 
   return (
@@ -23,6 +23,6 @@ function Input(props) {
       </button>
     </div>
   );
-}
+};
 
 export default Input;
