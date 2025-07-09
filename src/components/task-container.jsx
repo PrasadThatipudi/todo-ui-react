@@ -1,11 +1,24 @@
 import Task from "./task";
+import "../styles/task-container.css";
+import Input from "./input";
 
 function TaskContainer(props) {
   return (
-    <div>
-      {props.tasks.map((task, index) => (
-        <Task key={index} description={task.description} done={task.done} />
-      ))}
+    <div className="task-container">
+      <Input
+        className="input-row"
+        onSubmit={(...args) => console.log(...args)}
+      />
+      <div className="task-list">
+        {props.tasks.map((task, index) => (
+          <Task
+            key={index}
+            className="task"
+            description={task.description}
+            done={task.done}
+          />
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import TabBar from "./components/tab-bar.jsx";
 import TaskContainer from "./components/task-container";
 import { useState } from "react";
+import "./styles/app.css";
 
 function App() {
   const [activeTab, setActiveTab] = useState(0);
@@ -14,10 +15,15 @@ function App() {
   ]);
 
   return (
-    <div>
-      <h1>Todo App</h1>
-      <TabBar allTitles={todos.map((todo) => todo.title)} />
-      <TaskContainer tasks={todos[activeTab].tasks} />
+    <div className="app-layout">
+      <div className="app-shell">
+        <div className="app-tabs">
+          <TabBar allTitles={todos.map((todo) => todo.title)} />
+        </div>
+        <div className="app-tasks">
+          <TaskContainer tasks={todos[activeTab].tasks} />
+        </div>
+      </div>
     </div>
   );
 }
