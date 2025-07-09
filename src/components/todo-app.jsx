@@ -1,9 +1,9 @@
-import TabBar from "./components/tab-bar.jsx";
-import TaskContainer from "./components/task-container";
+import TabBar from "./tab-bar.jsx";
+import TaskContainer from "./task-container.jsx";
 import { useState } from "react";
-import "./styles/app.css";
+import "../styles/index.css";
 
-function App() {
+function TodoApp() {
   const [activeTab, setActiveTab] = useState(0);
   const [todos, setTodos] = useState([
     {
@@ -28,4 +28,4 @@ function App() {
   );
 }
 
-export default App;
+export default TodoApp;

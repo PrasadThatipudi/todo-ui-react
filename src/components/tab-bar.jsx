@@ -1,19 +1,14 @@
 import Tab from "./tab.jsx";
-import "../styles/tab-bar.css";
 
 function TabBar(props) {
-  const { allTitles, activeTab, setActiveTab } = props;
+  const { allTitles, setActiveTab } = props;
 
   return (
     <div className="tab-bar">
       {allTitles.map((title, idx) => (
-        <button
-          key={idx}
-          className={`tab${activeTab === idx ? " active" : ""}`}
-          onClick={() => setActiveTab(idx)}
-        >
+        <Tab key={idx} title={title} onClick={() => setActiveTab(idx)}>
           {title}
-        </button>
+        </Tab>
       ))}
       <button className="tab-bar__add-btn">+</button>
     </div>

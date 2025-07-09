@@ -1,5 +1,4 @@
 import Task from "./task";
-import "../styles/task-container.css";
 import Input from "./input";
 
 function TaskContainer(props) {
