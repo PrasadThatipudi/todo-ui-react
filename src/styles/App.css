@@ -28,7 +28,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
   position: relative;
   overflow-x: hidden;
 }
@@ -38,7 +38,7 @@ body {
   max-width: 44em;
   background: #fff;
   border-radius: 0.4em;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
   border: 1.5px solid #e5e7eb;
   margin-bottom: 1.5em;
   padding: 1.5em 2em 1em 2em;
@@ -67,7 +67,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   font-size: 1.3em;
   color: #bbb;
   position: absolute;
@@ -81,7 +81,7 @@ body {
   max-width: 44em;
   background: #f9fafb;
   border-radius: 0.5em 0.5em 0 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   border: none;
   margin-bottom: 0.5em;
   padding: 0.7em 2em 0.2em 2em;
@@ -134,7 +134,7 @@ body {
   max-width: 44em;
   background: #fff;
   border-radius: 0 0 0.5em 0.5em;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
   border: none;
   padding: 2em 2em 3em 2em;
   display: flex;
@@ -189,7 +189,7 @@ body {
   flex: none;
   height: 100%;
 }
-}
+
 .input {
   flex: 1 1 0;
   min-width: 0;
@@ -230,7 +230,7 @@ body {
   border-radius: 0.5em;
   padding: 0.8em 1em;
   gap: 1em;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 }
 .task-checkbox {
   width: 1.2em;
@@ -242,7 +242,8 @@ body {
   font-size: 1.1em;
   color: #222;
 }
-.task-edit-btn, .task-delete-btn {
+.task-edit-btn,
+.task-delete-btn {
   border-radius: 0.5em;
   border: 1.5px solid #e5e7eb;
   background: #fafbfc;
@@ -252,7 +253,7 @@ body {
   cursor: pointer;
   transition: background 0.2s;
 }
-.task-edit-btn:hover, .task-delete-btn:hover {
+.task-edit-btn:hover,
+.task-delete-btn:hover {
   background: #f0f0f0;
-}
 }
