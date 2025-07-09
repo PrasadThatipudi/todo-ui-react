@@ -1,22 +1,22 @@
 import Tab from "./tab.jsx";
 
 const TabBar = (props) => {
+  const { titles, addTab, setActiveTab } = props;
   return (
     <div className="tab-bar">
-      {props.titles.map((title, index) => (
-        <Tab
-          key={index}
-          title={title}
-          onClick={() => props.setActiveTab(index)}
-        >
+      {titles.map((title, index) => (
+        <Tab key={index} title={title} onClick={() => setActiveTab(index)}>
           {title}
         </Tab>
       ))}
       <button
         className="tab-bar__add-btn"
-        onClick={() =>
-          props.dispatch({ type: "ADD-TODO", payload: { title: "New Tab" } })
-        }
+        onClick={() => {
+          const newTitle = prompt("Enter new tab title:");
+          if (newTitle.trim() && !titles.includes(newTitle)) {
+            addTab(newTitle);
+          }
+        }}
       >
         +
       </button>

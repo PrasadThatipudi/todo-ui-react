@@ -2,19 +2,37 @@ import Task from "./task";
 import Input from "./input";
 
 const TaskContainer = (props) => {
+  const { todoId, dispatch, tasks } = props;
   return (
     <div className="task-container">
       <Input
         className="input-row"
-        onSubmit={(...args) => console.log(...args)}
+        onSubmit={(description) => {
+          dispatch({
+            type: "ADD-TASK",
+            payload: { description, todoId },
+          });
+        }}
       />
       <div className="task-list">
-        {props.tasks.map((task, index) => (
+        {tasks.map((task, index) => (
           <Task
             key={index}
             className="task"
             description={task.description}
             done={task.done}
+            toggleTask={() =>
+              dispatch({
+                type: "TOGGLE-TASK",
+                payload: { todoId, taskId: task.id },
+              })
+            }
+            deleteTask={() =>
+              dispatch({
+                type: "DELETE-TASK",
+                payload: { todoId, taskId: task.id },
+              })
+            }
           />
         ))}
       </div>

@@ -22,11 +22,17 @@ const TodoApp = () => {
           <TabBar
             titles={todos.map((todo) => todo.title)}
             setActiveTab={(index) => setActiveTab(index)}
-            dispatch={dispatch}
+            addTab={(title) =>
+              dispatch({ type: "ADD-TODO", payload: { title } })
+            }
           />
         </div>
         <div className="app-tasks">
-          <TaskContainer tasks={todos[activeTab].tasks} dispatch={dispatch} />
+          <TaskContainer
+            tasks={todos[activeTab].tasks}
+            dispatch={dispatch}
+            todoId={activeTab}
+          />
         </div>
       </div>
     </div>
