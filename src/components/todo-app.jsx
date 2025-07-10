@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { reducer } from "../reducer.jsx";
 import "../styles/index.css";
 import { useThunkReducer } from "../useThunkReducer.jsx";
-import { loadTodos } from "../actions.jsx";
 
 const TodoApp = () => {
   const [activeTab, setActiveTab] = useState(0);

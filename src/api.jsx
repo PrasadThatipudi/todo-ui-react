@@ -1,6 +1,5 @@
 async function handleFetch(url, options) {
   const response = await fetch(url, options);
-  console.log(response);
 
   if (!response.ok) {
     throw new Error("Network response was not ok");
@@ -9,12 +8,14 @@ async function handleFetch(url, options) {
 }
 
 const API = {
+  placeholder: "todo-api",
+
   async fetchTodos() {
-    return await handleFetch("/todo-api/todos");
+    return await handleFetch(`/${this.placeholder}/todos`);
   },
 
   async addTodo(title) {
-    return await handleFetch("/todo-api/todos", {
+    return await handleFetch(`/${this.placeholder}/todos`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title }),
@@ -22,7 +23,7 @@ const API = {
   },
 
   async addTask(todoId, description) {
-    return await handleFetch(`/todos/${todoId}/tasks`, {
+    return await handleFetch(`/${this.placeholder}/todos/${todoId}/tasks`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ description }),
@@ -30,16 +31,22 @@ const API = {
   },
 
   async toggleTask(todoId, taskId) {
-    return await handleFetch(`/todos/${todoId}/tasks/${taskId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-    });
+    return await handleFetch(
+      `/${this.placeholder}/todos/${todoId}/tasks/${taskId}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   },
 
   async deleteTask(todoId, taskId) {
-    return await handleFetch(`/todos/${todoId}/tasks/${taskId}`, {
-      method: "DELETE",
-    });
+    return await handleFetch(
+      `/${this.placeholder}/todos/${todoId}/tasks/${taskId}`,
+      {
+        method: "DELETE",
+      }
+    );
   },
 };
 

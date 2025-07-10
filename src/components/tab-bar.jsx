@@ -10,6 +10,7 @@ const TabBar = (props) => {
         </Tab>
       ))}
       <button
+        type="button"
         className="tab-bar__add-btn"
         onClick={() => {
           const newTitle = prompt("Enter new tab title:");

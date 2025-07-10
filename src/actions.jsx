@@ -7,23 +7,11 @@ const addTodo = (payload) => async (dispatch) => {
   dispatch({ payload: { state } });
 };
 
-const addTask = (state, action) => {
-  return state.map((todo) => {
-    if (todo.id === action.payload.todoId) {
-      return {
-        ...todo,
-        tasks: [
-          ...todo.tasks,
-          {
-            id: todo.tasks.length,
-            description: action.payload.description,
-            done: false,
-          },
-        ],
-      };
-    }
-    return todo;
-  });
+const addTask = (payload) => async (dispatch) => {
+  await API.addTask(payload.todoId, payload.description);
+
+  const state = await API.fetchTodos();
+  dispatch({ payload: { state } });
 };
 
 const toggleTask = (state, action) => {

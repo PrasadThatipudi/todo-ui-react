@@ -10,9 +10,9 @@ const Input = (props) => {
         type="text"
         value={value}
         onChange={(event) => setValue(event.target.value)}
-        autoFocus={true}
       />
       <button
+        type="submit"
         className="add-btn"
         onClick={() => {
           props.onSubmit(value);

@@ -8,7 +8,7 @@ const Task = (props) => {
       <span className={`task-desc ${done ? "done" : "undone"}`}>
         {description}
       </span>
-      <button className="task-delete-btn" onClick={deleteTask}>
+      <button type="button" className="task-delete-btn" onClick={deleteTask}>
         Delete
       </button>
     </div>

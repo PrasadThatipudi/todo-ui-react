@@ -3,6 +3,7 @@ const Tab = (props) => {
 
   return (
     <button
+      type="button"
       className={`tab ${isActive ? " active" : ""}`}
       onClick={props.onClick}
     >
