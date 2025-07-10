@@ -8,11 +8,9 @@ async function handleFetch(url, options) {
   return await response.json();
 }
 
-const debug = (arg) => console.log(arg) || arg;
-
 const API = {
   async fetchTodos() {
-    return debug(await handleFetch("/todo-api/todos"));
+    return await handleFetch("/todo-api/todos");
   },
 
   async addTodo(title) {
