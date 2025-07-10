@@ -1,21 +1,18 @@
 import TabBar from "./tab-bar.jsx";
 import TaskContainer from "./task-container.jsx";
-import { useState, useReducer } from "react";
-import reducer from "../reducer.jsx";
+import { useState, useEffect } from "react";
+import { reducer } from "../reducer.jsx";
 import "../styles/index.css";
+import { useThunkReducer } from "../useThunkReducer.jsx";
+import { loadTodos } from "../actions.jsx";
 
 const TodoApp = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const [todos, dispatch] = useReducer(reducer, [
-    {
-      id: 0,
-      title: "Shopping",
-      tasks: [
-        { id: 0, description: "Buy Cloths", done: false },
-        { id: 1, description: "Buy Cosmetics", done: true },
-      ],
-    },
-  ]);
+  const [todos, dispatch] = useThunkReducer(reducer, []);
+
+  useEffect(() => {
+    dispatch({ type: "LOAD-TODOS" });
+  }, []);
 
   return (
     <div className="app-layout">
