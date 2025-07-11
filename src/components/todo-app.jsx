@@ -7,10 +7,10 @@ import { useThunkReducer } from "../useThunkReducer.jsx";
 
 const TodoApp = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const [todos, dispatch] = useThunkReducer(reducer, []);
+  const [todos, controlledDispatch] = useThunkReducer(reducer, []);
 
   useEffect(() => {
-    dispatch({ type: "LOAD-TODOS" });
+    controlledDispatch({ type: "LOAD-TODOS" });
   }, []);
 
   return (
@@ -18,19 +18,23 @@ const TodoApp = () => {
       <div className="app-shell">
         <div className="app-tabs">
           <TabBar
-            titles={todos.map((todo) => todo.title) || []}
+            titles={todos.map((todo) => todo.title)}
             setActiveTab={(index) => setActiveTab(index)}
             addTab={(title) =>
-              dispatch({ type: "ADD-TODO", payload: { title } })
+              controlledDispatch({ type: "ADD-TODO", payload: { title } })
             }
           />
         </div>
         <div className="app-tasks">
-          <TaskContainer
-            tasks={todos[activeTab]?.tasks || []}
-            dispatch={dispatch}
-            todoId={activeTab}
-          />
+          {todos.length === 0 ? (
+            <div className="no-todos">No Todos Available!</div>
+          ) : (
+            <TaskContainer
+              tasks={todos[activeTab]?.tasks || []}
+              dispatch={controlledDispatch}
+              todoId={activeTab}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -1,12 +1,12 @@
 import { addTask, addTodo, deleteTask, loadTodos, toggleTask } from "./actions";
 
-const controlledDispatch = (dispatch) => (action) => {
+const createControlledDispatch = (thunkDispatch) => (action) => {
   const actions = {
-    "ADD-TODO": (payload) => dispatch(addTodo(payload)),
-    "ADD-TASK": (payload) => dispatch(addTask(payload)),
-    "TOGGLE-TASK": (payload) => dispatch(toggleTask(payload)),
-    "DELETE-TASK": (payload) => dispatch(deleteTask(payload)),
-    "LOAD-TODOS": () => dispatch(loadTodos()),
+    "ADD-TODO": (payload) => thunkDispatch(addTodo(payload)),
+    "ADD-TASK": (payload) => thunkDispatch(addTask(payload)),
+    "TOGGLE-TASK": (payload) => thunkDispatch(toggleTask(payload)),
+    "DELETE-TASK": (payload) => thunkDispatch(deleteTask(payload)),
+    "LOAD-TODOS": () => thunkDispatch(loadTodos()),
   };
 
   if (actions[action.type]) {
@@ -18,4 +18,4 @@ const reducer = (_state, action) => {
   return action.payload.state;
 };
 
-export { reducer, controlledDispatch };
+export { reducer, createControlledDispatch };

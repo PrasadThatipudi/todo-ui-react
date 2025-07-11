@@ -1,17 +1,17 @@
 import API from "./api";
 
-const addTodo = (payload) => async (dispatch) => {
+const addTodo = (payload) => async (thunkDispatch) => {
   await API.addTodo(payload.title);
 
   const state = await API.fetchTodos();
-  dispatch({ payload: { state } });
+  thunkDispatch({ payload: { state } });
 };
 
-const addTask = (payload) => async (dispatch) => {
+const addTask = (payload) => async (thunkDispatch) => {
   await API.addTask(payload.todoId, payload.description);
 
   const state = await API.fetchTodos();
-  dispatch({ payload: { state } });
+  thunkDispatch({ payload: { state } });
 };
 
 const toggleTask = (state, action) => {
@@ -42,10 +42,10 @@ const deleteTask = (state, action) => {
   });
 };
 
-const loadTodos = () => async (dispatch) => {
+const loadTodos = () => async (thunkDispatch) => {
   const state = await API.fetchTodos();
 
-  dispatch({ payload: { state } });
+  thunkDispatch({ payload: { state } });
 };
 
 export { loadTodos, addTodo, addTask, toggleTask, deleteTask };

@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { controlledDispatch } from "./reducer";
+import { createControlledDispatch } from "./reducer";
 
 const useThunkReducer = (reducer, initialState) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -12,7 +12,7 @@ const useThunkReducer = (reducer, initialState) => {
     return dispatch(action);
   };
 
-  return [state, controlledDispatch(thunkDispatch)];
+  return [state, createControlledDispatch(thunkDispatch)];
 };
 
 export { useThunkReducer };
