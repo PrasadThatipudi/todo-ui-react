@@ -24,13 +24,13 @@ const TaskContainer = (props) => {
             toggleTask={() =>
               dispatch({
                 type: "TOGGLE-TASK",
-                payload: { todoId, taskId: task.id },
+                payload: { todoId, taskId: task.task_id },
               })
             }
             deleteTask={() =>
               dispatch({
                 type: "DELETE-TASK",
-                payload: { todoId, taskId: task.id },
+                payload: { todoId, taskId: task.task_id },
               })
             }
           />

@@ -8,26 +8,19 @@ const addTodo = (payload) => async (thunkDispatch) => {
 };
 
 const addTask = (payload) => async (thunkDispatch) => {
-  await API.addTask(payload.todoId, payload.description);
+  const { todoId, description } = payload;
+  await API.addTask(todoId, description);
 
   const state = await API.fetchTodos();
   thunkDispatch({ payload: { state } });
 };
 
-const toggleTask = (state, action) => {
-  return state.map((todo) => {
-    if (todo.id === action.payload.todoId) {
-      return {
-        ...todo,
-        tasks: todo.tasks.map((task) =>
-          task.id === action.payload.taskId
-            ? { ...task, done: !task.done }
-            : task
-        ),
-      };
-    }
-    return todo;
-  });
+const toggleTask = (payload) => async (thunkDispatch) => {
+  const { todoId, taskId } = payload;
+  await API.toggleTask(todoId, taskId);
+
+  const state = await API.fetchTodos();
+  thunkDispatch({ payload: { state } });
 };
 
 const deleteTask = (state, action) => {
