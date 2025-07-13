@@ -27,12 +27,14 @@ const TaskContainer = (props) => {
                 payload: { todoId, taskId: task.task_id },
               })
             }
-            deleteTask={() =>
+            deleteTask={(event) => {
+              event.stopPropagation();
+
               dispatch({
                 type: "DELETE-TASK",
                 payload: { todoId, taskId: task.task_id },
-              })
-            }
+              });
+            }}
           />
         ))}
       </div>
