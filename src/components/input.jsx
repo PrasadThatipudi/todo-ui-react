@@ -22,7 +22,7 @@ const Input = (props) => {
             handleSubmit(props, value, setValue);
           }
         }}
-        onChange={(event) => setValue(event.target.value)}
+        onChange={props.onChange || ((event) => setValue(event.target.value))}
       />
       <button
         type="submit"

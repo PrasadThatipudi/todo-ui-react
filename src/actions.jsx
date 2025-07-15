@@ -1,4 +1,4 @@
-import API from "./api";
+import API from "./api.jsx";
 
 const addTodo = (payload) => async (thunkDispatch) => {
   await API.addTodo(payload.title);

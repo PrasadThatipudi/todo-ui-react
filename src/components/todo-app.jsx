@@ -19,11 +19,16 @@ const TodoApp = () => {
         <div className="app-tabs">
           <TabBar
             titles={todos.map((todo) => todo.title)}
+            pendingTasksCounts={todos.map(
+              (todo) => todo.tasks.filter((task) => !task.done).length
+            )}
             setActiveTab={(index) => setActiveTab(index)}
+            activeTabIndex={activeTab}
             placeholder="New Todo"
             addTab={(title) =>
               controlledDispatch({ type: "ADD-TODO", payload: { title } })
             }
+            todos={todos}
           />
         </div>
         <div className="app-tasks">

@@ -98,7 +98,7 @@ body {
 .tab-bar {
   display: flex;
   align-items: center;
-  overflow-x: auto;
+  overflow-x: visible;
   white-space: nowrap;
   scroll-behavior: smooth;
   gap: 1em;
@@ -113,6 +113,8 @@ body {
   font-size: 1em;
   cursor: pointer;
   transition: background 0.2s, border 0.2s;
+  position: relative;
+  overflow: visible;
 }
 .tab-bar::-webkit-scrollbar {
   height: 0.6rem; /* optional: custom scrollbar height for Chrome/Safari */
@@ -133,6 +135,25 @@ body {
 }
 .tab-bar__add-btn:hover {
   background: #f0f0f0;
+}
+
+.tab-pending-count {
+  position: absolute;
+  top: -0.4em;
+  right: -0.4em;
+  background: #e53935;
+  color: #fff;
+  border-radius: 50%;
+  width: 1.2em;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95em;
+  font-weight: 700;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .app-tasks {
