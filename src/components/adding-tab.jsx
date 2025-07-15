@@ -7,7 +7,7 @@ const AddingTab = (props) => {
     <input
       className="tab"
       type="text"
-      placeholder="New Tab Title"
+      placeholder={props.placeholder || "New Tab"}
       onKeyDown={(event) => {
         if (event.key === "Enter" && title.trim()) {
           props.addTab(title.trim());

@@ -3,7 +3,7 @@ import Tab from "./tab.jsx";
 import { useState } from "react";
 
 const TabBar = (props) => {
-  const { titles, addTab, setActiveTab } = props;
+  const { titles, addTab, setActiveTab, placeholder } = props;
   const [isAddingNewTab, setIsAddingNewTab] = useState(false);
 
   return (
@@ -17,6 +17,7 @@ const TabBar = (props) => {
         <AddingTab
           onCloseAddingTab={() => setIsAddingNewTab(false)}
           addTab={addTab}
+          placeholder={placeholder}
         />
       )}
       <button

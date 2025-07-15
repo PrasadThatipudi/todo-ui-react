@@ -20,6 +20,7 @@ const TodoApp = () => {
           <TabBar
             titles={todos.map((todo) => todo.title)}
             setActiveTab={(index) => setActiveTab(index)}
+            placeholder="New Todo"
             addTab={(title) =>
               controlledDispatch({ type: "ADD-TODO", payload: { title } })
             }
