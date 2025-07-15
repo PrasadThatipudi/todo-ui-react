@@ -18,7 +18,7 @@ const TodoApp = () => {
       <div className="app-shell">
         <div className="app-tabs">
           <TabBar
-            titles={todos.map((todo) => todo.title)}
+            titles={todos.map(({ title, todo_id }) => ({ title, todo_id }))}
             pendingTasksCounts={todos.map(
               (todo) => todo.tasks.filter((task) => !task.done).length
             )}
@@ -29,6 +29,7 @@ const TodoApp = () => {
               controlledDispatch({ type: "ADD-TODO", payload: { title } })
             }
             todos={todos}
+            dispatch={controlledDispatch}
           />
         </div>
         <div className="app-tasks">

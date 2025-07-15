@@ -32,12 +32,20 @@ const API = {
 
   async toggleTask(todoId, taskId) {
     return await handleFetch(
-      `/${this.placeholder}/todos/${todoId}/tasks/${taskId}`,
+      `/${this.placeholder}/todos/${todoId}/tasks/${taskId}/status`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
       }
     );
+  },
+
+  async editTodoTitle(todo_id, title) {
+    return await handleFetch(`/${this.placeholder}/todos/${todo_id}/title`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title }),
+    });
   },
 
   async deleteTask(todoId, taskId) {

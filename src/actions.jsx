@@ -23,6 +23,14 @@ const toggleTask = (payload) => async (thunkDispatch) => {
   thunkDispatch({ payload: { state } });
 };
 
+const editTodoTitle = (payload) => async (thunkDispatch) => {
+  const { todo_id, title } = payload;
+  await API.editTodoTitle(todo_id, title);
+
+  const state = await API.fetchTodos();
+  thunkDispatch({ payload: { state } });
+};
+
 const deleteTask = (payload) => async (thunkDispatch) => {
   const { todoId, taskId } = payload;
   await API.deleteTask(todoId, taskId);
@@ -37,4 +45,4 @@ const loadTodos = () => async (thunkDispatch) => {
   thunkDispatch({ payload: { state } });
 };
 
-export { loadTodos, addTodo, addTask, toggleTask, deleteTask };
+export { loadTodos, addTodo, addTask, toggleTask, deleteTask, editTodoTitle };

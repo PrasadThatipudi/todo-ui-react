@@ -10,19 +10,25 @@ const TabBar = (props) => {
     setActiveTab,
     placeholder,
     pendingTasksCounts,
+    dispatch,
   } = props;
   const [isAddingNewTab, setIsAddingNewTab] = useState(false);
 
   return (
     <div className="tab-bar">
-      {titles.map((title, index) => (
+      {titles.map(({ title, todo_id }, index) => (
         <Tab
           key={index}
           title={title}
           isActive={index === activeTabIndex}
           onClick={() => setActiveTab(index)}
           pendingTasksCount={pendingTasksCounts[index]}
-          onEditTitle={(title) => alert(`Edit title: ${title}`)}
+          onEditTitle={(newTodoTitle) =>
+            dispatch({
+              type: "EDIT-TODO-TITLE",
+              payload: { todo_id, title: newTodoTitle },
+            })
+          }
         />
       ))}
       {isAddingNewTab && (

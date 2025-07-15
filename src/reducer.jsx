@@ -4,19 +4,21 @@ import {
   deleteTask,
   loadTodos,
   toggleTask,
+  editTodoTitle,
 } from "./actions.jsx";
 
 const createControlledDispatch = (thunkDispatch) => (action) => {
   const actions = {
-    "ADD-TODO": (payload) => thunkDispatch(addTodo(payload)),
-    "ADD-TASK": (payload) => thunkDispatch(addTask(payload)),
-    "TOGGLE-TASK": (payload) => thunkDispatch(toggleTask(payload)),
-    "DELETE-TASK": (payload) => thunkDispatch(deleteTask(payload)),
-    "LOAD-TODOS": () => thunkDispatch(loadTodos()),
+    "ADD-TODO": addTodo,
+    "ADD-TASK": addTask,
+    "TOGGLE-TASK": toggleTask,
+    "DELETE-TASK": deleteTask,
+    "LOAD-TODOS": loadTodos,
+    "EDIT-TODO-TITLE": editTodoTitle,
   };
 
   if (actions[action.type]) {
-    actions[action.type](action.payload);
+    thunkDispatch(actions[action.type](action.payload));
   }
 };
 
