@@ -9,9 +9,7 @@ const TabBar = (props) => {
   return (
     <div className="tab-bar">
       {titles.map((title, index) => (
-        <Tab key={index} title={title} onClick={() => setActiveTab(index)}>
-          {title}
-        </Tab>
+        <Tab key={index} title={title} onClick={() => setActiveTab(index)} />
       ))}
       {isAddingNewTab && (
         <AddingTab

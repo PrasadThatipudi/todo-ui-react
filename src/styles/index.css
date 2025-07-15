@@ -98,6 +98,9 @@ body {
 .tab-bar {
   display: flex;
   align-items: center;
+  overflow-x: auto;
+  white-space: nowrap;
+  scroll-behavior: smooth;
   gap: 1em;
   width: 100%;
 }
@@ -110,6 +113,9 @@ body {
   font-size: 1em;
   cursor: pointer;
   transition: background 0.2s, border 0.2s;
+}
+.tab-bar::-webkit-scrollbar {
+  height: 0.6rem; /* optional: custom scrollbar height for Chrome/Safari */
 }
 .tab.active {
   background: #fff;

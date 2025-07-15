@@ -1,4 +1,10 @@
-import { addTask, addTodo, deleteTask, loadTodos, toggleTask } from "./actions";
+import {
+  addTask,
+  addTodo,
+  deleteTask,
+  loadTodos,
+  toggleTask,
+} from "./actions.jsx";
 
 const createControlledDispatch = (thunkDispatch) => (action) => {
   const actions = {
