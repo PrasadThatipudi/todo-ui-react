@@ -1,8 +1,14 @@
-import Task from "./task";
-import Input from "./input";
+import Task from "./task.jsx";
+import Input from "./input.jsx";
 
 const TaskContainer = (props) => {
   const { todoId, dispatch, tasks } = props;
+  console.log(
+    "TaskContainer rendered with todoId:",
+    todoId,
+    "and tasks:",
+    tasks
+  );
   return (
     <div className="task-container">
       <Input
@@ -15,16 +21,16 @@ const TaskContainer = (props) => {
         }}
       />
       <div className="task-list">
-        {tasks.map((task, index) => (
+        {tasks.map((task) => (
           <Task
-            key={index}
+            key={task._id}
             className="task"
             description={task.description}
             done={task.done}
             toggleTask={() =>
               dispatch({
                 type: "TOGGLE-TASK",
-                payload: { todoId, taskId: task.task_id },
+                payload: { todoId, taskId: task._id },
               })
             }
             deleteTask={(event) => {
@@ -32,7 +38,7 @@ const TaskContainer = (props) => {
 
               dispatch({
                 type: "DELETE-TASK",
-                payload: { todoId, taskId: task.task_id },
+                payload: { todoId, taskId: task._id },
               });
             }}
           />

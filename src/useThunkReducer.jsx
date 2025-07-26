@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { createControlledDispatch } from "./reducer";
+import { createControlledDispatch } from "./reducer.jsx";
 
 const useThunkReducer = (reducer, initialState) => {
   const [state, dispatch] = useReducer(reducer, initialState);

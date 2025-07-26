@@ -1,15 +1,33 @@
 async function handleFetch(url, options) {
   const response = await fetch(url, options);
+  const resultJSON = await response.json();
+  console.log(resultJSON);
 
   if (!response.ok) {
-    throw new Error("Network response was not ok");
+    throw new Error(resultJSON.message);
   }
-  return await response.json();
+
+  return resultJSON;
 }
 
 const API = {
   placeholder: "todo-api",
 
+  async login(username, password) {
+    return await handleFetch(`/${this.placeholder}/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+  },
+
+  async signup(username, password) {
+    return await handleFetch(`/${this.placeholder}/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+  },
   async fetchTodos() {
     return await handleFetch(`/${this.placeholder}/todos`);
   },
@@ -32,7 +50,7 @@ const API = {
 
   async toggleTask(todoId, taskId) {
     return await handleFetch(
-      `/${this.placeholder}/todos/${todoId}/tasks/${taskId}/status`,
+      `/${this.placeholder}/todos/${todoId}/tasks/${taskId}`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
