@@ -23,14 +23,14 @@ const TaskContainer = (props) => {
       <div className="task-list">
         {tasks.map((task) => (
           <Task
-            key={task._id}
+            key={task.task_id}
             className="task"
             description={task.description}
             done={task.done}
             toggleTask={() =>
               dispatch({
                 type: "TOGGLE-TASK",
-                payload: { todoId, taskId: task._id },
+                payload: { todoId, taskId: task.task_id },
               })
             }
             deleteTask={(event) => {
@@ -38,7 +38,7 @@ const TaskContainer = (props) => {
 
               dispatch({
                 type: "DELETE-TASK",
-                payload: { todoId, taskId: task._id },
+                payload: { todoId, taskId: task.task_id },
               });
             }}
           />
