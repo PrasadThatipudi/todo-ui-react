@@ -1,5 +1,6 @@
 async function handleFetch(url, options) {
-  const response = await fetch(url, options);
+  const response = await fetch(url, { ...options, credentials: "include" });
+  console.log(response);
   const resultJSON = await response.json();
   console.log(resultJSON);
 
@@ -11,10 +12,10 @@ async function handleFetch(url, options) {
 }
 
 const API = {
-  placeholder: "todo-api",
+  placeholder: "/todo-app",
 
   async login(username, password) {
-    return await handleFetch(`/${this.placeholder}/login`, {
+    return await handleFetch(`${this.placeholder}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
@@ -22,18 +23,18 @@ const API = {
   },
 
   async signup(username, password) {
-    return await handleFetch(`/${this.placeholder}/signup`, {
+    return await handleFetch(`${this.placeholder}/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
     });
   },
   async fetchTodos() {
-    return await handleFetch(`/${this.placeholder}/todos`);
+    return await handleFetch(`${this.placeholder}/todos`);
   },
 
   async addTodo(title) {
-    return await handleFetch(`/${this.placeholder}/todos`, {
+    return await handleFetch(`${this.placeholder}/todos`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title }),
@@ -41,7 +42,7 @@ const API = {
   },
 
   async addTask(todoId, description) {
-    return await handleFetch(`/${this.placeholder}/todos/${todoId}/tasks`, {
+    return await handleFetch(`${this.placeholder}/todos/${todoId}/tasks`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ description }),
@@ -50,7 +51,7 @@ const API = {
 
   async toggleTask(todoId, taskId) {
     return await handleFetch(
-      `/${this.placeholder}/todos/${todoId}/tasks/${taskId}`,
+      `${this.placeholder}/todos/${todoId}/tasks/${taskId}`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -59,7 +60,7 @@ const API = {
   },
 
   async editTodoTitle(todo_id, title) {
-    return await handleFetch(`/${this.placeholder}/todos/${todo_id}/title`, {
+    return await handleFetch(`${this.placeholder}/todos/${todo_id}/title`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title }),
@@ -68,7 +69,7 @@ const API = {
 
   async deleteTask(todoId, taskId) {
     return await handleFetch(
-      `/${this.placeholder}/todos/${todoId}/tasks/${taskId}`,
+      `${this.placeholder}/todos/${todoId}/tasks/${taskId}`,
       {
         method: "DELETE",
       }

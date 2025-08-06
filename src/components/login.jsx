@@ -58,9 +58,7 @@ const Login = ({ onLogin }) => {
         />
         {error && <div className="login-error">{error}</div>}
         {signupSuccess && mode === "login" && (
-          <div className="login-success">
-            Signup successful! Please log in.
-          </div>
+          <div className="login-success">Signup successful! Please log in.</div>
         )}
         <button className="login-btn" type="submit" disabled={loading}>
           {loading ? "Please wait..." : mode === "login" ? "Login" : "Sign Up"}

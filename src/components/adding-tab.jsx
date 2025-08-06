@@ -12,8 +12,6 @@ const AddingTab = (props) => {
         if (event.key === "Enter" && title.trim()) {
           props.addTab(title.trim());
           props.onCloseAddingTab();
-        } else if (event.key === "Escape") {
-          props.onCloseAddingTab();
         }
       }}
       onChange={(e) => setTitle(e.target.value)}

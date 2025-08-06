@@ -6,10 +6,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/todo-api": {
+      "/todo-app": {
         target: "https://todo-app-jvru.onrender.com",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/todo-api/, ""),
+        rewrite: (path) => path.replace(/^\/todo-app/, ""),
       },
     },
   },
