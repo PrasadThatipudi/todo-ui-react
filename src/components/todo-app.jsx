@@ -39,7 +39,7 @@ const TodoApp = () => {
             <TaskContainer
               tasks={todos[activeTab]?.tasks || []}
               dispatch={controlledDispatch}
-              todoId={todos[activeTab].todo_id}
+              todoId={todos[activeTab]?.todo_id}
             />
           )}
         </div>

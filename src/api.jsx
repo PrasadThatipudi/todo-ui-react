@@ -12,7 +12,7 @@ async function handleFetch(url, options) {
 }
 
 const API = {
-  placeholder: "/todo-app",
+  placeholder: "https://todo-app-jvru.onrender.com",
 
   async login(username, password) {
     return await handleFetch(`${this.placeholder}/login`, {
