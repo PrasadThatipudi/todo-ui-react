@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/todo-api": {
-        target: "http://localhost:8000",
+        target: "https://todo-app-jvru.onrender.com",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/todo-api/, ""),
       },
