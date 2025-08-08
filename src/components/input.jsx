@@ -4,11 +4,13 @@ const Input = (props) => {
   const [value, setValue] = useState("");
 
   const handleSubmit = (props, value, setValue) => {
-    if (!value.trim()) return;
+    if (!value) return;
 
-    props.onSubmit(value.trim());
+    props.onSubmit(value.trimEnd());
     setValue("");
   };
+
+  const trim = (str) => str.trimStart().replace(/\s+/g, " ");
 
   return (
     <div className="input-row">
@@ -22,7 +24,7 @@ const Input = (props) => {
             handleSubmit(props, value, setValue);
           }
         }}
-        onChange={props.onChange || ((event) => setValue(event.target.value))}
+        onChange={props.onChange || ((e) => setValue(trim(e.target.value)))}
       />
       <button
         type="submit"

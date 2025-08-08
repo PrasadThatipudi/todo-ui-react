@@ -35,9 +35,11 @@ const TabBar = (props) => {
         <AddingTab
           onCloseAddingTab={() => {
             setIsAddingNewTab(false);
+          }}
+          addTab={(title) => {
+            addTab(title);
             setActiveTab(titles.length);
           }}
-          addTab={addTab}
           placeholder={placeholder}
         />
       )}

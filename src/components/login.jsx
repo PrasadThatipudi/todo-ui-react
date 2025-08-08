@@ -12,7 +12,7 @@ const Login = ({ onLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!username.trim() || !password.trim()) {
+    if (!username || !password) {
       setError("Username and password are required");
       return;
     }
@@ -47,14 +47,14 @@ const Login = ({ onLogin }) => {
           type="text"
           placeholder="Username"
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e) => setUsername(e.target.value.trim())}
         />
         <input
           className="login-input"
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value.trim())}
         />
         {error && <div className="login-error">{error}</div>}
         {signupSuccess && mode === "login" && (
