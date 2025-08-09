@@ -1,7 +1,35 @@
 /* Layout for App component and its children, using only black, white, and subtle grays for structure */
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   background: #fafbfc;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    sans-serif;
+}
+
+.app-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.app-title {
+  color: #181818;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+#root {
+  min-height: calc(100vh - 72px);
 }
 
 .app-layout {
@@ -34,14 +62,16 @@ body {
 }
 
 .app-header {
-  width: 95%;
+  width: 25%;
+  height: 3.6em;
   max-width: 44em;
   background: #fff;
   border-radius: 0.4em;
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
   border: 1.5px solid #e5e7eb;
   margin-bottom: 1.5em;
-  padding: 1.5em 2em 1em 2em;
+  padding: 0.8em 0.8em 0.8em 0.8em;
+  margin: 1em 1em 1em 2em;
   display: flex;
   align-items: center;
   justify-content: center;
