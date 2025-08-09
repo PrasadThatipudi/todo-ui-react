@@ -35,16 +35,18 @@ const TodoApp = () => {
   const nextLeftTab = (activeTabIndex, totalTabs) =>
     (activeTabIndex - 1 + totalTabs) % totalTabs;
 
-  useHotkeys("h", (event) => {
+  useHotkeys("h,ArrowLeft,BracketLeft", (event) => {
     event.preventDefault();
-    setActiveTab(nextLeftTab(activeTab, todos.length));
+    if (todos.length > 0) {
+      setActiveTab(nextLeftTab(activeTab, todos.length));
+    }
   });
 
   // Shortcut: l -> Go to right tab (next tab, wraps to first tab)
   const nextRightTab = (activeTabIndex, totalTabs) =>
     (activeTabIndex + 1) % totalTabs;
 
-  useHotkeys("l", (event) => {
+  useHotkeys("l,ArrowRight,BracketRight", (event) => {
     event.preventDefault();
     setActiveTab(nextRightTab(activeTab, todos.length));
   });
@@ -73,6 +75,8 @@ const TodoApp = () => {
       setActiveTab(getLastTabIndex(todos.length));
     }
   });
+
+  // Shortcut: Left Arrow -> Navigate to previous tab, Right Arrow -> Navigate to next tab
 
   return (
     <div className="app-layout">
