@@ -35,21 +35,29 @@ const TodoApp = () => {
   const nextLeftTab = (activeTabIndex, totalTabs) =>
     (activeTabIndex - 1 + totalTabs) % totalTabs;
 
-  useHotkeys("h,ArrowLeft,BracketLeft", (event) => {
-    event.preventDefault();
-    if (todos.length > 0) {
-      setActiveTab(nextLeftTab(activeTab, todos.length));
-    }
-  });
+  useHotkeys(
+    "h,ArrowLeft,BracketLeft",
+    (event) => {
+      event.preventDefault();
+      if (todos.length > 0) {
+        setActiveTab(nextLeftTab(activeTab, todos.length));
+      }
+    },
+    { enableOnFormTags: ["INPUT", "TEXTAREA"] }
+  );
 
   // Shortcut: l -> Go to right tab (next tab, wraps to first tab)
   const nextRightTab = (activeTabIndex, totalTabs) =>
     (activeTabIndex + 1) % totalTabs;
 
-  useHotkeys("l,ArrowRight,BracketRight", (event) => {
-    event.preventDefault();
-    setActiveTab(nextRightTab(activeTab, todos.length));
-  });
+  useHotkeys(
+    "l,ArrowRight,BracketRight",
+    (event) => {
+      event.preventDefault();
+      setActiveTab(nextRightTab(activeTab, todos.length));
+    },
+    { enableOnFormTags: ["INPUT", "TEXTAREA"] }
+  );
 
   // Shortcut: 1,2,3,4,5,6,7,8 -> Go to respective tab (index + 1)
   const goToTabByNumber = (keyNumber, totalTabs) => {
@@ -57,24 +65,32 @@ const TodoApp = () => {
     return tabIndex < totalTabs ? tabIndex : null; // Return null if tab doesn't exist
   };
 
-  useHotkeys("1,2,3,4,5,6,7,8", (event) => {
-    event.preventDefault();
-    const keyNumber = parseInt(event.key);
-    const targetTab = goToTabByNumber(keyNumber, todos.length);
-    if (targetTab !== null) {
-      setActiveTab(targetTab);
-    }
-  });
+  useHotkeys(
+    "1,2,3,4,5,6,7,8",
+    (event) => {
+      event.preventDefault();
+      const keyNumber = parseInt(event.key);
+      const targetTab = goToTabByNumber(keyNumber, todos.length);
+      if (targetTab !== null) {
+        setActiveTab(targetTab);
+      }
+    },
+    { enableOnFormTags: ["INPUT", "TEXTAREA"] }
+  );
 
   // Shortcut: 9 -> Go to last tab
   const getLastTabIndex = (totalTabs) => totalTabs - 1;
 
-  useHotkeys("9", (event) => {
-    event.preventDefault();
-    if (todos.length > 0) {
-      setActiveTab(getLastTabIndex(todos.length));
-    }
-  });
+  useHotkeys(
+    "9",
+    (event) => {
+      event.preventDefault();
+      if (todos.length > 0) {
+        setActiveTab(getLastTabIndex(todos.length));
+      }
+    },
+    { enableOnFormTags: ["INPUT", "TEXTAREA"] }
+  );
 
   // Shortcut: Left Arrow -> Navigate to previous tab, Right Arrow -> Navigate to next tab
 
