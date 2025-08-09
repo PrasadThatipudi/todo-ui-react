@@ -9,6 +9,56 @@ const Login = ({ onLogin }) => {
   const [mode, setMode] = useState("login"); // 'login' or 'signup'
   const [loading, setLoading] = useState(false);
   const [signupSuccess, setSignupSuccess] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState({
+    score: 0,
+    feedback: [],
+    isValid: false,
+  });
+
+  // Password strength validation
+  const validatePassword = (password) => {
+    const requirements = [
+      { test: password.length >= 8, text: "At least 8 characters" },
+      { test: /[A-Z]/.test(password), text: "At least one uppercase letter" },
+      { test: /[a-z]/.test(password), text: "At least one lowercase letter" },
+      { test: /\d/.test(password), text: "At least one number" },
+      {
+        test: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+        text: "At least one special character",
+      },
+    ];
+
+    const passedTests = requirements.filter((req) => req.test);
+    const failedTests = requirements.filter((req) => !req.test);
+
+    // Show only the first unmet requirement
+    const nextRequirement = failedTests.length > 0 ? [failedTests[0].text] : [];
+
+    return {
+      score: passedTests.length,
+      feedback: nextRequirement,
+      isValid: passedTests.length === requirements.length,
+    };
+  };
+
+  // Get strength label from score
+  const getStrengthLabel = (score) => {
+    switch (score) {
+      case 0:
+      case 1:
+        return "Weak";
+      case 2:
+        return "Fair";
+      case 3:
+        return "Good";
+      case 4:
+        return "Strong";
+      case 5:
+        return "Very Strong";
+      default:
+        return "Weak";
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,6 +66,16 @@ const Login = ({ onLogin }) => {
       setError("Username and password are required");
       return;
     }
+
+    // Validate password strength for signup
+    if (mode === "signup") {
+      const strength = validatePassword(password);
+      if (!strength.isValid) {
+        setError("Password requirements not met.");
+        return;
+      }
+    }
+
     setError("");
     setLoading(true);
     try {
@@ -28,6 +88,7 @@ const Login = ({ onLogin }) => {
         setMode("login");
         setPassword("");
         setError("");
+        setPasswordStrength({ score: 0, feedback: [], isValid: false });
       }
     } catch (err) {
       setError(err.message || "Something went wrong");
@@ -54,8 +115,38 @@ const Login = ({ onLogin }) => {
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value.trim())}
+          onChange={(e) => {
+            const newPassword = e.target.value.trim();
+            setPassword(newPassword);
+            if (mode === "signup") {
+              setPasswordStrength(validatePassword(newPassword));
+            }
+          }}
         />
+
+        {/* Password strength indicator for signup */}
+        {mode === "signup" && password && (
+          <>
+            {passwordStrength.feedback.length > 0 && (
+              <div className="password-feedback-simple">
+                {passwordStrength.feedback[0]}
+                <span
+                  className={`strength-indicator strength-${passwordStrength.score}`}
+                >
+                  {getStrengthLabel(passwordStrength.score)}
+                </span>
+              </div>
+            )}
+            {passwordStrength.isValid && (
+              <div className="password-valid-simple">
+                ✓ Password meets all requirements
+                <span className="strength-indicator strength-5">
+                  Very Strong
+                </span>
+              </div>
+            )}
+          </>
+        )}
         {error && <div className="login-error">{error}</div>}
         {signupSuccess && mode === "login" && (
           <div className="login-success">Signup successful! Please log in.</div>

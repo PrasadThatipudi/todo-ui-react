@@ -1,6 +1,6 @@
 import AddingTab from "./adding-tab.jsx";
 import Tab from "./tab.jsx";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const TabBar = (props) => {
   const {
@@ -13,6 +13,24 @@ const TabBar = (props) => {
     dispatch,
   } = props;
   const [isAddingNewTab, setIsAddingNewTab] = useState(false);
+  const addTabButtonRef = useRef(null);
+  const addingTabInputRef = useRef(null);
+
+  useEffect(() => {
+    if (!isAddingNewTab || !addTabButtonRef.current) return;
+
+    addTabButtonRef.current.scrollLeft =
+      addTabButtonRef.current.parentElement.scrollWidth;
+  }, [isAddingNewTab]);
+
+  useEffect(() => {
+    const handleClickOutside = () => setIsAddingNewTab(false);
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isAddingNewTab]);
 
   return (
     <div className="tab-bar">
@@ -33,6 +51,7 @@ const TabBar = (props) => {
       ))}
       {isAddingNewTab && (
         <AddingTab
+          ref={addingTabInputRef}
           onCloseAddingTab={() => {
             setIsAddingNewTab(false);
           }}
@@ -44,9 +63,12 @@ const TabBar = (props) => {
         />
       )}
       <button
+        ref={addTabButtonRef}
         type="button"
         className="tab-bar__add-btn"
-        onClick={() => setIsAddingNewTab(true)}
+        onClick={() => {
+          setIsAddingNewTab(true);
+        }}
       >
         +
       </button>
