@@ -30,22 +30,22 @@ const TabBar = (props) => {
     if (activeTabRef.current && tabBarRef.current) {
       const tabElement = activeTabRef.current;
       const containerElement = tabBarRef.current;
-      
+
       // Get element positions
       const tabRect = tabElement.getBoundingClientRect();
       const containerRect = containerElement.getBoundingClientRect();
-      
+
       // Check if tab is fully visible
-      const isTabFullyVisible = 
-        tabRect.left >= containerRect.left && 
+      const isTabFullyVisible =
+        tabRect.left >= containerRect.left &&
         tabRect.right <= containerRect.right;
-      
+
       // Only scroll if tab is not fully visible
       if (!isTabFullyVisible) {
         tabElement.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-          inline: 'nearest'
+          behavior: "smooth",
+          block: "nearest",
+          inline: "nearest",
         });
       }
     }
@@ -61,36 +61,38 @@ const TabBar = (props) => {
   }, [isAddingNewTab]);
 
   return (
-    <div className="tab-bar" ref={tabBarRef}>
-      {titles.map(({ title, todo_id }, index) => (
-        <Tab
-          key={index}
-          ref={index === activeTabIndex ? activeTabRef : null}
-          title={title}
-          isActive={index === activeTabIndex}
-          onClick={() => setActiveTab(index)}
-          pendingTasksCount={pendingTasksCounts[index]}
-          onEditTitle={(newTodoTitle) =>
-            dispatch({
-              type: "EDIT-TODO-TITLE",
-              payload: { todo_id, title: newTodoTitle },
-            })
-          }
-        />
-      ))}
-      {isAddingNewTab && (
-        <AddingTab
-          ref={addingTabInputRef}
-          onCloseAddingTab={() => {
-            setIsAddingNewTab(false);
-          }}
-          addTab={(title) => {
-            addTab(title);
-            setActiveTab(titles.length);
-          }}
-          placeholder={placeholder}
-        />
-      )}
+    <div className="tab-bar-wrapper">
+      <div className="tab-bar" ref={tabBarRef}>
+        {titles.map(({ title, todo_id }, index) => (
+          <Tab
+            key={index}
+            ref={index === activeTabIndex ? activeTabRef : null}
+            title={title}
+            isActive={index === activeTabIndex}
+            onClick={() => setActiveTab(index)}
+            pendingTasksCount={pendingTasksCounts[index]}
+            onEditTitle={(newTodoTitle) =>
+              dispatch({
+                type: "EDIT-TODO-TITLE",
+                payload: { todo_id, title: newTodoTitle },
+              })
+            }
+          />
+        ))}
+        {isAddingNewTab && (
+          <AddingTab
+            ref={addingTabInputRef}
+            onCloseAddingTab={() => {
+              setIsAddingNewTab(false);
+            }}
+            addTab={(title) => {
+              addTab(title);
+              setActiveTab(titles.length);
+            }}
+            placeholder={placeholder}
+          />
+        )}
+      </div>
       <button
         ref={addTabButtonRef}
         type="button"
