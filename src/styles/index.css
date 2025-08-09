@@ -32,6 +32,11 @@ body {
   min-height: calc(100vh - 72px);
 }
 
+/* Full height for root only when on login page */
+body.login-page #root {
+  min-height: 100vh;
+}
+
 .app-layout {
   min-height: 100vh;
   display: flex;
@@ -76,6 +81,14 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
+}
+
+/* Only make app-header fixed when on login page */
+body.login-page .app-header {
+  position: fixed;
+  top: 0.2em;
+  left: 0.2em;
+  z-index: 100;
 }
 
 .title {

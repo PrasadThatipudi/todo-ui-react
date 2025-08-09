@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/login.css";
 import API from "../api.jsx";
 
@@ -14,6 +14,14 @@ const Login = ({ onLogin }) => {
     feedback: [],
     isValid: false,
   });
+
+  // Add body class when login component mounts, remove when unmounts
+  useEffect(() => {
+    document.body.classList.add("login-page");
+    return () => {
+      document.body.classList.remove("login-page");
+    };
+  }, []);
 
   // Password strength validation
   const validatePassword = (password) => {
