@@ -20,7 +20,7 @@ const TodoApp = () => {
     if (addButton) {
       addButton.click();
     }
-  });
+  }, { enableOnFormTags: ["INPUT", "TEXTAREA"] });
 
   // Shortcut: k -> Focus on task input field
   useHotkeys("k", (event) => {
@@ -30,6 +30,15 @@ const TodoApp = () => {
       taskInput.focus();
     }
   });
+
+  // Shortcut: Escape -> Remove focus from any input field
+  useHotkeys("Escape", () => {
+    if (document.activeElement && 
+        (document.activeElement.tagName === 'INPUT' || 
+         document.activeElement.tagName === 'TEXTAREA')) {
+      document.activeElement.blur();
+    }
+  }, { enableOnFormTags: ["INPUT", "TEXTAREA"] });
 
   // Shortcut: h -> Go to left tab (previous tab, wraps to last tab)
   const nextLeftTab = (activeTabIndex, totalTabs) =>
