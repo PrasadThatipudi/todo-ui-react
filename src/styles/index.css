@@ -100,7 +100,7 @@ body {
   align-items: center;
   overflow-x: auto;
   white-space: nowrap;
-  /* scroll-behavior: smooth; */
+  scroll-behavior: smooth;
   padding: 0.4em 0;
   gap: 1em;
   width: 100%;

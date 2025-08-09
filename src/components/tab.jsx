@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, forwardRef } from "react";
 
-const Tab = (props) => {
+const Tab = forwardRef((props, ref) => {
   const { title, isActive, onClick, pendingTasksCount, onEditTitle } = props;
   const [editing, setEditing] = useState(false);
   const [inputValue, setInputValue] = useState(title);
@@ -52,6 +52,7 @@ const Tab = (props) => {
     />
   ) : (
     <button
+      ref={ref}
       type="button"
       className={`tab${isActive ? " active" : ""}`}
       onDoubleClick={handleDoubleClick}
@@ -64,6 +65,6 @@ const Tab = (props) => {
       )}
     </button>
   );
-};
+});
 
 export default Tab;
