@@ -67,6 +67,12 @@ const API = {
     });
   },
 
+  async deleteTodo(todoId) {
+    return await handleFetch(`${this.placeholder}/todos/${todoId}`, {
+      method: "DELETE",
+    });
+  },
+
   async deleteTask(todoId, taskId) {
     return await handleFetch(
       `${this.placeholder}/todos/${todoId}/tasks/${taskId}`,

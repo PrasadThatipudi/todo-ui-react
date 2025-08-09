@@ -1,7 +1,14 @@
 import { useState, useRef, useEffect, forwardRef } from "react";
 
 const Tab = forwardRef((props, ref) => {
-  const { title, isActive, onClick, pendingTasksCount, onEditTitle } = props;
+  const {
+    title,
+    isActive,
+    onClick,
+    pendingTasksCount,
+    onEditTitle,
+    onDeleteTodo,
+  } = props;
   const [editing, setEditing] = useState(false);
   const [inputValue, setInputValue] = useState(title);
   const inputRef = useRef(null);
@@ -40,6 +47,13 @@ const Tab = forwardRef((props, ref) => {
     }
   };
 
+  const handleDeleteClick = (e) => {
+    e.stopPropagation();
+    if (onDeleteTodo) {
+      onDeleteTodo();
+    }
+  };
+
   return editing ? (
     <input
       ref={inputRef}
@@ -62,6 +76,16 @@ const Tab = forwardRef((props, ref) => {
       {title}
       {typeof pendingTasksCount === "number" && (pendingTasksCount || "") && (
         <span className="tab-pending-count">{pendingTasksCount}</span>
+      )}
+      {onDeleteTodo && (
+        <button
+          type="button"
+          className="tab-delete-btn"
+          onClick={handleDeleteClick}
+          title="Close tab"
+        >
+          ✕
+        </button>
       )}
     </button>
   );

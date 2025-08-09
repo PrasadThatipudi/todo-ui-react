@@ -2,6 +2,7 @@ import {
   addTask,
   addTodo,
   deleteTask,
+  deleteTodo,
   loadTodos,
   toggleTask,
   editTodoTitle,
@@ -13,6 +14,7 @@ const createControlledDispatch = (thunkDispatch) => (action) => {
     "ADD-TASK": addTask,
     "TOGGLE-TASK": toggleTask,
     "DELETE-TASK": deleteTask,
+    "DELETE-TODO": deleteTodo,
     "LOAD-TODOS": loadTodos,
     "EDIT-TODO-TITLE": editTodoTitle,
   };

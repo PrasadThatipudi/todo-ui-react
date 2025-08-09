@@ -77,6 +77,12 @@ const TabBar = (props) => {
                 payload: { todo_id, title: newTodoTitle },
               })
             }
+            onDeleteTodo={() =>
+              dispatch({
+                type: "DELETE-TODO",
+                payload: { todoId: todo_id },
+              })
+            }
           />
         ))}
         {isAddingNewTab && (

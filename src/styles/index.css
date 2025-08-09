@@ -160,6 +160,11 @@ body {
   overflow: visible;
   flex-shrink: 0;
 }
+
+/* Add padding when tab has delete button */
+.tab:has(.tab-delete-btn) {
+  padding-right: 2.5em;
+}
 .tab-bar::-webkit-scrollbar {
   height: 0.6rem; /* optional: custom scrollbar height for Chrome/Safari */
 }
@@ -205,6 +210,33 @@ body {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
   pointer-events: none;
   z-index: 999999;
+}
+
+.tab-delete-btn {
+  position: absolute;
+  top: 50%;
+  right: 0.8em;
+  transform: translateY(-50%);
+  background: transparent;
+  color: #666;
+  border: none;
+  border-radius: 50%;
+  width: 1em;
+  height: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1em;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  z-index: 5;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.tab-delete-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: #333;
 }
 
 .app-tasks {
