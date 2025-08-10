@@ -121,10 +121,8 @@ const TaskContainer = (props) => {
 
   useHotkeys(
     "Backspace,Delete,fn+delete,fn+backspace",
-    handleDeleteFocusedTask,
-    {
-      enableOnFormTags: ["INPUT", "TEXTAREA"],
-    }
+    handleDeleteFocusedTask
+    // Removed enableOnFormTags so it doesn't interfere with input text editing
   );
 
   // Toggle focused task

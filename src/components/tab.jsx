@@ -48,6 +48,45 @@ const Tab = forwardRef((props, ref) => {
     setEditing(false);
   };
 
+  // Auto-closing brackets/quotes handler
+  const handleAutoComplete = (event) => {
+    const closingChars = {
+      "(": ")",
+      "[": "]",
+      "{": "}",
+      "'": "'",
+      '"': '"',
+    };
+
+    const openChar = event.key;
+    const closeChar = closingChars[openChar];
+
+    if (closeChar) {
+      event.preventDefault();
+
+      const input = event.target;
+      const start = input.selectionStart;
+      const end = input.selectionEnd;
+      const currentValue = input.value;
+
+      // Insert both opening and closing characters
+      const newValue =
+        currentValue.slice(0, start) +
+        openChar +
+        closeChar +
+        currentValue.slice(end);
+
+      // Update the input value with capitalization
+      setInputValue(capitalize(newValue));
+
+      // Position cursor after the opening character
+      setTimeout(() => {
+        input.setSelectionRange(start + 1, start + 1);
+      }, 0);
+    }
+    // For all other keys (including Enter/Escape), let useHotkeys handle them
+  };
+
   // Hotkeys for editing mode - only active when editing
   useHotkeys("enter", handleInputSubmit, {
     enableOnFormTags: ["input"],
@@ -71,7 +110,12 @@ const Tab = forwardRef((props, ref) => {
       ref={inputRef}
       className={`tab tab-edit-input${isActive ? " active" : ""}`}
       value={inputValue}
-      onChange={(event) => setInputValue(capitalize(event.target.value))}
+      onChange={(event) => {
+        // Apply trimming and capitalization
+        const trimmed = event.target.value.trimStart().replace(/\s+/g, " ");
+        setInputValue(capitalize(trimmed));
+      }}
+      onKeyDown={handleAutoComplete}
       onBlur={handleInputBlur}
       style={{ position: "relative" }}
     />

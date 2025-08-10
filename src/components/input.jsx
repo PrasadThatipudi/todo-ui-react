@@ -17,7 +17,8 @@ const Input = (props) => {
     if (!value) return;
 
     const priority = calculatePriority();
-    props.onSubmit(value.trimEnd(), priority);
+    const trimmedValue = value.trimStart().replace(/\s+/g, " ").trimEnd();
+    props.onSubmit(trimmedValue, priority);
     setValue("");
     setIsImportant(false);
     setIsUrgent(false);
@@ -70,8 +71,6 @@ const Input = (props) => {
     { enableOnFormTags: ["INPUT"] }
   );
 
-  const trim = (str) => str.trimStart().replace(/\s+/g, " ");
-
   return (
     <div className="input-row">
       <input
@@ -80,11 +79,54 @@ const Input = (props) => {
         value={value}
         autoFocus={true}
         onKeyDown={(event) => {
+          // Handle auto-completion for brackets and quotes
+          const closingChars = {
+            "(": ")",
+            "[": "]",
+            "{": "}",
+            "'": "'",
+            '"': '"',
+          };
+
+          const openChar = event.key;
+          const closeChar = closingChars[openChar];
+
+          if (closeChar) {
+            event.preventDefault();
+
+            const input = event.target;
+            const start = input.selectionStart;
+            const end = input.selectionEnd;
+            const currentValue = input.value;
+
+            // Insert both opening and closing characters
+            const newValue =
+              currentValue.slice(0, start) +
+              openChar +
+              closeChar +
+              currentValue.slice(end);
+
+            // Update the input value
+            setValue(newValue);
+
+            // Position cursor after the opening character
+            setTimeout(() => {
+              input.setSelectionRange(start + 1, start + 1);
+            }, 0);
+            
+            return; // Don't process other key handlers
+          }
+
+          // Handle Enter key
           if (event.key === "Enter") {
             handleSubmit(props, value, setValue);
           }
         }}
-        onChange={props.onChange || ((e) => setValue(trim(e.target.value)))}
+        onChange={props.onChange || ((e) => {
+          // Apply trimming: remove leading spaces and replace multiple spaces with single space
+          const trimmed = e.target.value.trimStart().replace(/\s+/g, " ");
+          setValue(trimmed);
+        })}
       />
       <div className="priority-controls">
         <button

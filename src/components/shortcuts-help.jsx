@@ -51,9 +51,13 @@ const ShortcutsHelp = ({ isOpen, onClose }) => {
     {
       category: "Task Input",
       items: [
-        { keys: ["Ctrl", "I"], description: "Toggle Important priority" },
-        { keys: ["Ctrl", "U"], description: "Toggle Urgent priority" },
-        { keys: ["Ctrl", "M"], description: "Toggle both priorities" },
+        { keys: [["Ctrl", "I"]], description: "Toggle Important priority" },
+        { keys: [["Ctrl", "U"]], description: "Toggle Urgent priority" },
+        { keys: [["Ctrl", "M"]], description: "Toggle both priorities" },
+        {
+          keys: [["("], ["["], ["{"], ["'"], ['"']],
+          description: "Auto-close brackets/quotes",
+        },
       ],
     },
   ];
