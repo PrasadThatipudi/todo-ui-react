@@ -21,12 +21,13 @@ const TaskContainer = (props) => {
   // Navigation functions
   const navigateUp = () => {
     if (tasks.length === 0) return;
-    
+
     // Check and store if input was focused before navigation
-    const isInputFocused = document.activeElement && 
-      (document.activeElement.tagName === "INPUT" || 
-       document.activeElement.tagName === "TEXTAREA");
-    
+    const isInputFocused =
+      document.activeElement &&
+      (document.activeElement.tagName === "INPUT" ||
+        document.activeElement.tagName === "TEXTAREA");
+
     if (isInputFocused) {
       // Notify parent about input focus state change
       if (onInputFocusStateChange) {
@@ -34,7 +35,7 @@ const TaskContainer = (props) => {
       }
       document.activeElement.blur();
     }
-    
+
     const newIndex =
       focusedTaskIndex <= 0 ? tasks.length - 1 : focusedTaskIndex - 1;
     updateFocusedTaskIndex(newIndex);
@@ -42,12 +43,13 @@ const TaskContainer = (props) => {
 
   const navigateDown = () => {
     if (tasks.length === 0) return;
-    
+
     // Check and store if input was focused before navigation
-    const isInputFocused = document.activeElement && 
-      (document.activeElement.tagName === "INPUT" || 
-       document.activeElement.tagName === "TEXTAREA");
-    
+    const isInputFocused =
+      document.activeElement &&
+      (document.activeElement.tagName === "INPUT" ||
+        document.activeElement.tagName === "TEXTAREA");
+
     if (isInputFocused) {
       // Notify parent about input focus state change
       if (onInputFocusStateChange) {
@@ -55,7 +57,7 @@ const TaskContainer = (props) => {
       }
       document.activeElement.blur();
     }
-    
+
     const newIndex =
       focusedTaskIndex >= tasks.length - 1 ? 0 : focusedTaskIndex + 1;
     updateFocusedTaskIndex(newIndex);
@@ -89,17 +91,21 @@ const TaskContainer = (props) => {
   // Delete focused task
   const handleDeleteFocusedTask = (event) => {
     event.preventDefault();
-    
+
     // Only delete if there's a focused task
-    if (focusedTaskIndex !== -1 && tasks.length > 0 && tasks[focusedTaskIndex]) {
+    if (
+      focusedTaskIndex !== -1 &&
+      tasks.length > 0 &&
+      tasks[focusedTaskIndex]
+    ) {
       const taskToDelete = tasks[focusedTaskIndex];
-      
+
       // Delete the task
       dispatch({
         type: "DELETE-TASK",
         payload: { todoId, taskId: taskToDelete.task_id },
       });
-      
+
       // Adjust focus after deletion
       const newTaskCount = tasks.length - 1;
       if (newTaskCount === 0) {
@@ -113,7 +119,41 @@ const TaskContainer = (props) => {
     }
   };
 
-  useHotkeys("Backspace,Delete,fn+delete,fn+backspace", handleDeleteFocusedTask, {
+  useHotkeys(
+    "Backspace,Delete,fn+delete,fn+backspace",
+    handleDeleteFocusedTask,
+    {
+      enableOnFormTags: ["INPUT", "TEXTAREA"],
+    }
+  );
+
+  // Toggle focused task
+  const handleToggleFocusedTask = (event) => {
+    event.preventDefault();
+    
+    console.log("Toggle key pressed!");
+    console.log("focusedTaskIndex:", focusedTaskIndex);
+    console.log("tasks.length:", tasks.length);
+    
+    // Only toggle if there's a focused task
+    if (focusedTaskIndex !== -1 && tasks.length > 0 && tasks[focusedTaskIndex]) {
+      const taskToToggle = tasks[focusedTaskIndex];
+      console.log("Toggling task:", taskToToggle);
+      
+      // Toggle the task
+      dispatch({
+        type: "TOGGLE-TASK",
+        payload: { todoId, taskId: taskToToggle.task_id },
+      });
+    } else {
+      console.log("Cannot toggle - conditions not met:");
+      console.log("focusedTaskIndex !== -1:", focusedTaskIndex !== -1);
+      console.log("tasks.length > 0:", tasks.length > 0);
+      console.log("tasks[focusedTaskIndex] exists:", !!tasks[focusedTaskIndex]);
+    }
+  };
+
+  useHotkeys("d", handleToggleFocusedTask, {
     enableOnFormTags: ["INPUT", "TEXTAREA"],
   });
 
