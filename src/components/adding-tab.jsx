@@ -51,7 +51,7 @@ const AddingTab = (props) => {
       setTimeout(() => {
         input.setSelectionRange(start + 1, start + 1);
       }, 0);
-      
+
       return; // Don't process other key handlers
     }
 

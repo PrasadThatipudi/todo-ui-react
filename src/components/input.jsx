@@ -113,7 +113,7 @@ const Input = (props) => {
             setTimeout(() => {
               input.setSelectionRange(start + 1, start + 1);
             }, 0);
-            
+
             return; // Don't process other key handlers
           }
 
@@ -122,11 +122,14 @@ const Input = (props) => {
             handleSubmit(props, value, setValue);
           }
         }}
-        onChange={props.onChange || ((e) => {
-          // Apply trimming: remove leading spaces and replace multiple spaces with single space
-          const trimmed = e.target.value.trimStart().replace(/\s+/g, " ");
-          setValue(trimmed);
-        })}
+        onChange={
+          props.onChange ||
+          ((e) => {
+            // Apply trimming: remove leading spaces and replace multiple spaces with single space
+            const trimmed = e.target.value.trimStart().replace(/\s+/g, " ");
+            setValue(trimmed);
+          })
+        }
       />
       <div className="priority-controls">
         <button
