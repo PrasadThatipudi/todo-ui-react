@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 
 const Input = (props) => {
   const [value, setValue] = useState("");
@@ -48,6 +49,22 @@ const Input = (props) => {
     }
   };
 
+  // Hotkey definitions
+  useHotkeys("ctrl+i", (event) => {
+    event.preventDefault();
+    handleImportantClick();
+  });
+
+  useHotkeys("ctrl+u", (event) => {
+    event.preventDefault();
+    handleUrgentClick();
+  });
+
+  useHotkeys("ctrl+m", (event) => {
+    event.preventDefault();
+    handleBothPriorities();
+  });
+
   const trim = (str) => str.trimStart().replace(/\s+/g, " ");
 
   return (
@@ -61,35 +78,24 @@ const Input = (props) => {
           if (event.key === "Enter") {
             handleSubmit(props, value, setValue);
           }
-          // Ctrl+i for important
-          if (event.ctrlKey && event.key === "i") {
-            event.preventDefault();
-            handleImportantClick();
-          }
-          // Ctrl+u for urgent
-          if (event.ctrlKey && event.key === "u") {
-            event.preventDefault();
-            handleUrgentClick();
-          }
-          // Ctrl+m for both priorities (smart toggle)
-          if (event.ctrlKey && event.key === "m") {
-            event.preventDefault();
-            handleBothPriorities();
-          }
         }}
         onChange={props.onChange || ((e) => setValue(trim(e.target.value)))}
       />
       <div className="priority-controls">
         <button
           type="button"
-          className={`priority-btn priority-btn-important ${isImportant ? 'active' : ''}`}
+          className={`priority-btn priority-btn-important ${
+            isImportant ? "active" : ""
+          }`}
           onClick={handleImportantClick}
         >
           imp
         </button>
         <button
           type="button"
-          className={`priority-btn priority-btn-urgent ${isUrgent ? 'active' : ''}`}
+          className={`priority-btn priority-btn-urgent ${
+            isUrgent ? "active" : ""
+          }`}
           onClick={handleUrgentClick}
         >
           urg

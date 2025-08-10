@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, forwardRef } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 
 const Tab = forwardRef((props, ref) => {
   const {
@@ -38,14 +39,25 @@ const Tab = forwardRef((props, ref) => {
     }
   };
 
-  const handleInputKeyDown = (e) => {
-    if (e.key === "Enter") {
-      inputRef.current.blur();
-    } else if (e.key === "Escape") {
-      setInputValue(title);
-      setEditing(false);
-    }
+  const handleInputSubmit = () => {
+    inputRef.current.blur();
   };
+
+  const handleInputCancel = () => {
+    setInputValue(title);
+    setEditing(false);
+  };
+
+  // Hotkeys for editing mode - only active when editing
+  useHotkeys("enter", handleInputSubmit, {
+    enableOnFormTags: ["input"],
+    enabled: editing,
+  });
+
+  useHotkeys("escape", handleInputCancel, {
+    enableOnFormTags: ["input"],
+    enabled: editing,
+  });
 
   const handleDeleteClick = (e) => {
     e.stopPropagation();
@@ -61,7 +73,6 @@ const Tab = forwardRef((props, ref) => {
       value={inputValue}
       onChange={(event) => setInputValue(capitalize(event.target.value))}
       onBlur={handleInputBlur}
-      onKeyDown={handleInputKeyDown}
       style={{ position: "relative" }}
     />
   ) : (

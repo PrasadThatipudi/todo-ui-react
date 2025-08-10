@@ -1,7 +1,30 @@
 import { useState } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 
 const AddingTab = (props) => {
   const [title, setTitle] = useState("");
+
+  const handleSubmit = () => {
+    if (title) {
+      props.addTab(title.trimEnd());
+      props.onCloseAddingTab();
+      setTitle("");
+    }
+  };
+
+  const handleCancel = () => {
+    props.onCloseAddingTab();
+    setTitle("");
+  };
+
+  // Hotkey definitions
+  useHotkeys("enter", handleSubmit, {
+    enableOnFormTags: ["input"],
+  });
+
+  useHotkeys("escape", handleCancel, {
+    enableOnFormTags: ["input"],
+  });
 
   const trim = (str) => str.trimStart().replace(/\s+/g, " ");
 
@@ -10,16 +33,6 @@ const AddingTab = (props) => {
       className="tab"
       type="text"
       placeholder={props.placeholder || "New Tab"}
-      onKeyDown={(event) => {
-        if (event.key === "Enter" && title) {
-          props.addTab(title.trimEnd());
-          props.onCloseAddingTab();
-          setTitle("");
-        } else if (event.key === "Escape") {
-          props.onCloseAddingTab();
-          setTitle("");
-        }
-      }}
       onChange={(e) => setTitle(trim(e.target.value))}
       value={title}
       autoFocus={true}
