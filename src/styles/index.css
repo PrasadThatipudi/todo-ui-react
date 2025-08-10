@@ -434,6 +434,13 @@ body.login-page .app-header {
   padding: 0.8em 1em;
   gap: 1em;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.task-focused {
+  border-color: #3b82f6;
+  background: #eff6ff;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 .task-checkbox {
   width: 1.2em;

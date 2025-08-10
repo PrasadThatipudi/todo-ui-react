@@ -1,6 +1,6 @@
 import TabBar from "./tab-bar.jsx";
 import TaskContainer from "./task-container.jsx";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { reducer } from "../reducer.jsx";
 import "../styles/index.css";
 import { useThunkReducer } from "../useThunkReducer.jsx";
@@ -9,14 +9,16 @@ import { useHotkeys } from "react-hotkeys-hook";
 const TodoApp = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [todos, controlledDispatch] = useThunkReducer(reducer, []);
+  const [hasTaskFocus, setHasTaskFocus] = useState(false);
+  const clearTaskFocusRef = useRef(null);
 
   useEffect(() => {
     controlledDispatch({ type: "LOAD-TODOS" });
   }, []);
 
-  // Shortcut: Ctrl+N -> New todo (simulate clicking + button)
+  // Shortcut: Ctrl+T -> New todo (simulate clicking + button)
   useHotkeys(
-    "ctrl+n",
+    "ctrl+t",
     () => {
       const addButton = document.querySelector(".tab-bar__add-btn");
       if (addButton) {
@@ -26,25 +28,37 @@ const TodoApp = () => {
     { enableOnFormTags: ["INPUT", "TEXTAREA"] }
   );
 
-  // Shortcut: k -> Focus on task input field
-  useHotkeys("k", (event) => {
-    event.preventDefault(); // Prevent the 'k' from being typed
+  // Shortcut: i -> Focus on task input field
+  useHotkeys("i", (event) => {
+    event.preventDefault(); // Prevent the 'i' from being typed
     const taskInput = document.querySelector(".task-container .input");
     if (taskInput) {
       taskInput.focus();
     }
   });
 
-  // Shortcut: Escape -> Remove focus from any input field
+  // Shortcut: Escape -> Smart escape handling
   useHotkeys(
     "Escape",
     () => {
-      if (
+      const isInputFocused =
         document.activeElement &&
         (document.activeElement.tagName === "INPUT" ||
-          document.activeElement.tagName === "TEXTAREA")
-      ) {
+          document.activeElement.tagName === "TEXTAREA");
+
+      if (isInputFocused && hasTaskFocus) {
+        // If input is focused and task is focused, remove task focus only
+        if (clearTaskFocusRef.current) {
+          clearTaskFocusRef.current();
+        }
+      } else if (isInputFocused) {
+        // If input is focused but no task focus, remove input focus
         document.activeElement.blur();
+      } else if (hasTaskFocus) {
+        // If not on input but task is focused, remove task focus
+        if (clearTaskFocusRef.current) {
+          clearTaskFocusRef.current();
+        }
       }
     },
     { enableOnFormTags: ["INPUT", "TEXTAREA"] }
@@ -124,6 +138,8 @@ const TodoApp = () => {
               tasks={todos[activeTab]?.tasks || []}
               dispatch={controlledDispatch}
               todoId={todos[activeTab]?.todo_id}
+              onTaskFocusChange={setHasTaskFocus}
+              clearTaskFocusRef={clearTaskFocusRef}
             />
           )}
         </div>
