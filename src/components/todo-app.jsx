@@ -10,6 +10,7 @@ const TodoApp = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [todos, controlledDispatch] = useThunkReducer(reducer, []);
   const [hasTaskFocus, setHasTaskFocus] = useState(false);
+  const [wasInputFocusedBeforeNavigation, setWasInputFocusedBeforeNavigation] = useState(false);
   const clearTaskFocusRef = useRef(null);
 
   useEffect(() => {
@@ -58,6 +59,15 @@ const TodoApp = () => {
         // If not on input but task is focused, remove task focus
         if (clearTaskFocusRef.current) {
           clearTaskFocusRef.current();
+        }
+        
+        // Restore input focus if it was focused before navigation
+        if (wasInputFocusedBeforeNavigation) {
+          const taskInput = document.querySelector(".task-container .input");
+          if (taskInput) {
+            taskInput.focus();
+          }
+          setWasInputFocusedBeforeNavigation(false); // Reset the flag
         }
       }
     },
@@ -140,6 +150,7 @@ const TodoApp = () => {
               todoId={todos[activeTab]?.todo_id}
               onTaskFocusChange={setHasTaskFocus}
               clearTaskFocusRef={clearTaskFocusRef}
+              onInputFocusStateChange={setWasInputFocusedBeforeNavigation}
             />
           )}
         </div>

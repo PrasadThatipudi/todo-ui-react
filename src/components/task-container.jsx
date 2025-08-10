@@ -15,9 +15,26 @@ const TaskContainer = (props) => {
     }
   };
 
+  // Notify parent about input focus state
+  const { onInputFocusStateChange } = props;
+
   // Navigation functions
   const navigateUp = () => {
     if (tasks.length === 0) return;
+    
+    // Check and store if input was focused before navigation
+    const isInputFocused = document.activeElement && 
+      (document.activeElement.tagName === "INPUT" || 
+       document.activeElement.tagName === "TEXTAREA");
+    
+    if (isInputFocused) {
+      // Notify parent about input focus state change
+      if (onInputFocusStateChange) {
+        onInputFocusStateChange(true);
+      }
+      document.activeElement.blur();
+    }
+    
     const newIndex =
       focusedTaskIndex <= 0 ? tasks.length - 1 : focusedTaskIndex - 1;
     updateFocusedTaskIndex(newIndex);
@@ -25,6 +42,20 @@ const TaskContainer = (props) => {
 
   const navigateDown = () => {
     if (tasks.length === 0) return;
+    
+    // Check and store if input was focused before navigation
+    const isInputFocused = document.activeElement && 
+      (document.activeElement.tagName === "INPUT" || 
+       document.activeElement.tagName === "TEXTAREA");
+    
+    if (isInputFocused) {
+      // Notify parent about input focus state change
+      if (onInputFocusStateChange) {
+        onInputFocusStateChange(true);
+      }
+      document.activeElement.blur();
+    }
+    
     const newIndex =
       focusedTaskIndex >= tasks.length - 1 ? 0 : focusedTaskIndex + 1;
     updateFocusedTaskIndex(newIndex);
@@ -55,12 +86,37 @@ const TaskContainer = (props) => {
     enableOnFormTags: ["INPUT", "TEXTAREA"],
   });
 
-  console.log(
-    "TaskContainer rendered with todoId:",
-    todoId,
-    "and tasks:",
-    tasks
-  );
+  // Delete focused task
+  const handleDeleteFocusedTask = (event) => {
+    event.preventDefault();
+    
+    // Only delete if there's a focused task
+    if (focusedTaskIndex !== -1 && tasks.length > 0 && tasks[focusedTaskIndex]) {
+      const taskToDelete = tasks[focusedTaskIndex];
+      
+      // Delete the task
+      dispatch({
+        type: "DELETE-TASK",
+        payload: { todoId, taskId: taskToDelete.task_id },
+      });
+      
+      // Adjust focus after deletion
+      const newTaskCount = tasks.length - 1;
+      if (newTaskCount === 0) {
+        // No tasks left, clear focus
+        updateFocusedTaskIndex(-1);
+      } else if (focusedTaskIndex >= newTaskCount) {
+        // If we deleted the last task, focus on the new last task
+        updateFocusedTaskIndex(newTaskCount - 1);
+      }
+      // If we deleted a task in the middle, keep the same index (next task will slide up)
+    }
+  };
+
+  useHotkeys("Backspace,Delete,fn+delete,fn+backspace", handleDeleteFocusedTask, {
+    enableOnFormTags: ["INPUT", "TEXTAREA"],
+  });
+
   return (
     <div className="task-container">
       <Input
