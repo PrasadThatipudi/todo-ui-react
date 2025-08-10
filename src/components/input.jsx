@@ -32,38 +32,43 @@ const Input = (props) => {
   };
 
   const handleBothPriorities = () => {
-    // If both are selected, deselect both
-    if (isImportant && isUrgent) {
-      setIsImportant(false);
-      setIsUrgent(false);
-    }
-    // If only one is selected, select the other one too
-    else if (isImportant || isUrgent) {
+    if (!isImportant || !isUrgent) {
       setIsImportant(true);
       setIsUrgent(true);
+      return;
     }
-    // If none are selected, select both
-    else {
-      setIsImportant(true);
-      setIsUrgent(true);
-    }
+
+    setIsImportant(false);
+    setIsUrgent(false);
   };
 
   // Hotkey definitions
-  useHotkeys("ctrl+i", (event) => {
-    event.preventDefault();
-    handleImportantClick();
-  });
+  useHotkeys(
+    "ctrl+i",
+    (event) => {
+      event.preventDefault();
+      handleImportantClick();
+    },
+    { enableOnFormTags: ["INPUT"] }
+  );
 
-  useHotkeys("ctrl+u", (event) => {
-    event.preventDefault();
-    handleUrgentClick();
-  });
+  useHotkeys(
+    "ctrl+u",
+    (event) => {
+      event.preventDefault();
+      handleUrgentClick();
+    },
+    { enableOnFormTags: ["INPUT"] }
+  );
 
-  useHotkeys("ctrl+m", (event) => {
-    event.preventDefault();
-    handleBothPriorities();
-  });
+  useHotkeys(
+    "ctrl+m",
+    (event) => {
+      event.preventDefault();
+      handleBothPriorities();
+    },
+    { enableOnFormTags: ["INPUT"] }
+  );
 
   const trim = (str) => str.trimStart().replace(/\s+/g, " ");
 
