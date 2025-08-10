@@ -1,5 +1,6 @@
 import TabBar from "./tab-bar.jsx";
 import TaskContainer from "./task-container.jsx";
+import ShortcutsHelp from "./shortcuts-help.jsx";
 import { useState, useEffect, useRef } from "react";
 import { reducer } from "../reducer.jsx";
 import "../styles/index.css";
@@ -12,6 +13,7 @@ const TodoApp = () => {
   const [hasTaskFocus, setHasTaskFocus] = useState(false);
   const [wasInputFocusedBeforeNavigation, setWasInputFocusedBeforeNavigation] =
     useState(false);
+  const [showShortcutsHelp, setShowShortcutsHelp] = useState(false);
   const clearTaskFocusRef = useRef(null);
 
   useEffect(() => {
@@ -75,7 +77,7 @@ const TodoApp = () => {
     { enableOnFormTags: ["INPUT", "TEXTAREA"] }
   );
 
-  // Shortcut: h -> Go to left tab (previous tab, wraps to last tab)
+  // Shortcuts: h, ←, [ -> Go to previous tab (wraps to last tab)
   const nextLeftTab = (activeTabIndex, totalTabs) =>
     (activeTabIndex - 1 + totalTabs) % totalTabs;
 
@@ -86,7 +88,7 @@ const TodoApp = () => {
     }
   });
 
-  // Shortcut: l -> Go to right tab (next tab, wraps to first tab)
+  // Shortcuts: l, →, ] -> Go to next tab (wraps to first tab)
   const nextRightTab = (activeTabIndex, totalTabs) =>
     (activeTabIndex + 1) % totalTabs;
 
@@ -119,6 +121,35 @@ const TodoApp = () => {
       setActiveTab(getLastTabIndex(todos.length));
     }
   });
+
+  // Shortcut: ? key -> Show keyboard shortcuts help (when not in input)
+  useHotkeys("shift+slash", (event) => {
+    event.preventDefault();
+    console.log("? shortcut triggered!");
+    setShowShortcutsHelp(!showShortcutsHelp);
+  });
+
+  // Shortcut: Ctrl+\ -> Show keyboard shortcuts help (works everywhere including inputs)
+  useHotkeys(
+    "ctrl+backslash",
+    (event) => {
+      event.preventDefault();
+      console.log("Ctrl+\\ shortcut triggered!");
+      setShowShortcutsHelp(!showShortcutsHelp);
+    },
+    { enableOnFormTags: ["INPUT", "TEXTAREA"] }
+  );
+
+  // Alternative shortcuts for help
+  useHotkeys(
+    "f1",
+    (event) => {
+      event.preventDefault();
+      console.log("F1 pressed - showing help!");
+      setShowShortcutsHelp(!showShortcutsHelp);
+    },
+    { enableOnFormTags: ["INPUT", "TEXTAREA"] }
+  );
 
   // Shortcut: Left Arrow -> Navigate to previous tab, Right Arrow -> Navigate to next tab
 
@@ -156,6 +187,11 @@ const TodoApp = () => {
           )}
         </div>
       </div>
+
+      <ShortcutsHelp
+        isOpen={showShortcutsHelp}
+        onClose={() => setShowShortcutsHelp(false)}
+      />
     </div>
   );
 };

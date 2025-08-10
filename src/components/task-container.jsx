@@ -130,16 +130,20 @@ const TaskContainer = (props) => {
   // Toggle focused task
   const handleToggleFocusedTask = (event) => {
     event.preventDefault();
-    
+
     console.log("Toggle key pressed!");
     console.log("focusedTaskIndex:", focusedTaskIndex);
     console.log("tasks.length:", tasks.length);
-    
+
     // Only toggle if there's a focused task
-    if (focusedTaskIndex !== -1 && tasks.length > 0 && tasks[focusedTaskIndex]) {
+    if (
+      focusedTaskIndex !== -1 &&
+      tasks.length > 0 &&
+      tasks[focusedTaskIndex]
+    ) {
       const taskToToggle = tasks[focusedTaskIndex];
       console.log("Toggling task:", taskToToggle);
-      
+
       // Toggle the task
       dispatch({
         type: "TOGGLE-TASK",
