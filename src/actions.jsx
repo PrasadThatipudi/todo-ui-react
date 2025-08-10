@@ -8,8 +8,8 @@ const addTodo = (payload) => async (thunkDispatch) => {
 };
 
 const addTask = (payload) => async (thunkDispatch) => {
-  const { todoId, description } = payload;
-  await API.addTask(todoId, description);
+  const { todoId, description, priority } = payload;
+  await API.addTask(todoId, description, priority);
 
   const state = await API.fetchTodos();
   thunkDispatch({ payload: { state } });

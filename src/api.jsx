@@ -41,11 +41,11 @@ const API = {
     });
   },
 
-  async addTask(todoId, description) {
+  async addTask(todoId, description, priority = 0) {
     return await handleFetch(`${this.placeholder}/todos/${todoId}/tasks`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ description }),
+      body: JSON.stringify({ description, priority }),
     });
   },
 

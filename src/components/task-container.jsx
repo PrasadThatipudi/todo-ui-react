@@ -13,10 +13,10 @@ const TaskContainer = (props) => {
     <div className="task-container">
       <Input
         className="input-row"
-        onSubmit={(description) => {
+        onSubmit={(description, priority) => {
           dispatch({
             type: "ADD-TASK",
-            payload: { description, todoId },
+            payload: { description, priority, todoId },
           });
         }}
       />
@@ -27,6 +27,7 @@ const TaskContainer = (props) => {
             className="task"
             description={task.description}
             done={task.done}
+            priority={task.priority || 0}
             toggleTask={() =>
               dispatch({
                 type: "TOGGLE-TASK",

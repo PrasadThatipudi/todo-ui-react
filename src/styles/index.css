@@ -291,6 +291,86 @@ body.login-page .app-header {
   box-sizing: border-box;
 }
 
+.priority-controls {
+  display: flex;
+  flex-direction: row;
+  gap: 0.4em;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3em 0.6em;
+  background: #f9fafb;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 0.5em;
+  min-width: 5.5em;
+}
+
+.priority-btn {
+  border: 1.5px solid #d1d5db;
+  border-radius: 0.4em;
+  padding: 0.3em 0.7em;
+  font-size: 0.8em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  user-select: none;
+  min-width: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.priority-btn-important {
+  background: rgba(76, 175, 80, 0.15);
+  color: #4caf50;
+  border-color: rgba(76, 175, 80, 0.3);
+}
+
+.priority-btn-urgent {
+  background: rgba(229, 57, 53, 0.15);
+  color: #e53935;
+  border-color: rgba(229, 57, 53, 0.3);
+}
+
+.priority-btn:hover {
+  transform: translateY(-1px);
+}
+
+.priority-btn-important:hover {
+  background: rgba(76, 175, 80, 0.25);
+  border-color: rgba(76, 175, 80, 0.5);
+}
+
+.priority-btn-urgent:hover {
+  background: rgba(229, 57, 53, 0.25);
+  border-color: rgba(229, 57, 53, 0.5);
+}
+
+.priority-btn-important.active {
+  background: #4caf50;
+  border-color: #4caf50;
+  color: white;
+  font-weight: 600;
+}
+
+.priority-btn-urgent.active {
+  background: #e53935;
+  border-color: #e53935;
+  color: white;
+  font-weight: 600;
+}
+
+.priority-btn-important.active:hover {
+  background: #45a049;
+  border-color: #45a049;
+}
+
+.priority-btn-urgent.active:hover {
+  background: #d32f2f;
+  border-color: #d32f2f;
+}
+
 .task-container .input-row {
   display: flex;
   width: 100%;
@@ -365,6 +445,30 @@ body.login-page .app-header {
   font-size: 1.1em;
   color: #222;
 }
+
+.task-priority {
+  display: flex;
+  gap: 0.3em;
+  align-items: center;
+}
+
+.priority-badge {
+  padding: 0.2em 0.5em;
+  border-radius: 0.3em;
+  font-size: 0.75em;
+  font-weight: 600;
+  color: #fff;
+  text-transform: lowercase;
+}
+
+.priority-important {
+  background: #4caf50;
+}
+
+.priority-urgent {
+  background: #e53935;
+}
+
 .task-edit-btn,
 .task-delete-btn {
   border-radius: 0.5em;
