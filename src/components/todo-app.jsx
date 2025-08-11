@@ -1,6 +1,7 @@
 import TabBar from "./tab-bar.jsx";
 import TaskContainer from "./task-container.jsx";
 import ShortcutsHelp from "./shortcuts-help.jsx";
+import Footer from "./footer.jsx";
 import { useState, useEffect, useRef } from "react";
 import { reducer } from "../reducer.jsx";
 import "../styles/index.css";
@@ -154,45 +155,50 @@ const TodoApp = () => {
   // Shortcut: Left Arrow -> Navigate to previous tab, Right Arrow -> Navigate to next tab
 
   return (
-    <div className="app-layout">
-      <div className="app-shell">
-        <div className="app-tabs">
-          <TabBar
-            titles={todos.map(({ title, todo_id }) => ({ title, todo_id }))}
-            pendingTasksCounts={todos.map(
-              (todo) => todo.tasks.filter((task) => !task.done).length
-            )}
-            setActiveTab={(index) => setActiveTab(index)}
-            activeTabIndex={activeTab}
-            placeholder="New Todo"
-            addTab={(title) =>
-              controlledDispatch({ type: "ADD-TODO", payload: { title } })
-            }
-            todos={todos}
-            dispatch={controlledDispatch}
-          />
-        </div>
-        <div className="app-tasks">
-          {todos.length === 0 ? (
-            <div className="no-todos">No Todos Available!</div>
-          ) : (
-            <TaskContainer
-              tasks={todos[activeTab]?.tasks || []}
+    <>
+      <div className="app-layout">
+        <div className="app-shell">
+          <div className="app-tabs">
+            <TabBar
+              titles={todos.map(({ title, todo_id }) => ({ title, todo_id }))}
+              pendingTasksCounts={todos.map(
+                (todo) => todo.tasks.filter((task) => !task.done).length
+              )}
+              setActiveTab={(index) => setActiveTab(index)}
+              activeTabIndex={activeTab}
+              placeholder="New Todo"
+              addTab={(title) =>
+                controlledDispatch({ type: "ADD-TODO", payload: { title } })
+              }
+              todos={todos}
               dispatch={controlledDispatch}
-              todoId={todos[activeTab]?.todo_id}
-              onTaskFocusChange={setHasTaskFocus}
-              clearTaskFocusRef={clearTaskFocusRef}
-              onInputFocusStateChange={setWasInputFocusedBeforeNavigation}
             />
-          )}
+          </div>
+          <div className="app-tasks">
+            {todos.length === 0 ? (
+              <div className="no-todos">No Todos Available!</div>
+            ) : (
+              <TaskContainer
+                tasks={todos[activeTab]?.tasks || []}
+                dispatch={controlledDispatch}
+                todoId={todos[activeTab]?.todo_id}
+                onTaskFocusChange={setHasTaskFocus}
+                clearTaskFocusRef={clearTaskFocusRef}
+                onInputFocusStateChange={setWasInputFocusedBeforeNavigation}
+              />
+            )}
+          </div>
         </div>
+
+        <ShortcutsHelp
+          isOpen={showShortcutsHelp}
+          onClose={() => setShowShortcutsHelp(false)}
+        />
       </div>
 
-      <ShortcutsHelp
-        isOpen={showShortcutsHelp}
-        onClose={() => setShowShortcutsHelp(false)}
-      />
-    </div>
+      {/* Footer with frequently used shortcuts */}
+      <Footer />
+    </>
   );
 };
 
