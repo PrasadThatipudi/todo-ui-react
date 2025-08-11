@@ -77,12 +77,42 @@ const TabBar = (props) => {
                 payload: { todo_id, title: newTodoTitle },
               })
             }
-            onDeleteTodo={() =>
+            onDeleteTodo={() => {
+              // Handle active tab update before deletion
+              const currentActiveTab = activeTabIndex;
+              const deletedTabIndex = index;
+              
+              // Calculate new active tab index after deletion
+              let newActiveTab = currentActiveTab;
+              
+              if (deletedTabIndex < currentActiveTab) {
+                // Deleted tab is before active tab, shift active tab index down
+                newActiveTab = currentActiveTab - 1;
+              } else if (deletedTabIndex === currentActiveTab) {
+                // Deleted tab is the active tab
+                if (titles.length === 1) {
+                  // This is the last tab, no tabs will remain
+                  newActiveTab = -1;
+                } else if (deletedTabIndex === titles.length - 1) {
+                  // Deleted tab is the last tab, move to previous tab
+                  newActiveTab = deletedTabIndex - 1;
+                } else {
+                  // Move to the next tab (which will slide into current position)
+                  newActiveTab = deletedTabIndex;
+                }
+              }
+              
+              // Update active tab before dispatching delete
+              if (newActiveTab !== currentActiveTab && newActiveTab >= 0) {
+                setActiveTab(newActiveTab);
+              }
+              
+              // Dispatch the delete action
               dispatch({
                 type: "DELETE-TODO",
                 payload: { todoId: todo_id },
-              })
-            }
+              });
+            }}
           />
         ))}
         {isAddingNewTab && (
