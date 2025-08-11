@@ -155,9 +155,7 @@ const TaskContainer = (props) => {
     }
   };
 
-  useHotkeys("d", handleToggleFocusedTask, {
-    enableOnFormTags: ["INPUT", "TEXTAREA"],
-  });
+  useHotkeys("d", handleToggleFocusedTask);
 
   return (
     <div className="task-container">

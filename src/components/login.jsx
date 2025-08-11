@@ -124,7 +124,7 @@ const Login = ({ onLogin }) => {
           placeholder="Password"
           value={password}
           onChange={(e) => {
-            const newPassword = e.target.value.trim();
+            const newPassword = e.target.value;
             setPassword(newPassword);
             if (mode === "signup") {
               setPasswordStrength(validatePassword(newPassword));
