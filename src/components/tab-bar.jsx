@@ -81,10 +81,10 @@ const TabBar = (props) => {
               // Handle active tab update before deletion
               const currentActiveTab = activeTabIndex;
               const deletedTabIndex = index;
-              
+
               // Calculate new active tab index after deletion
               let newActiveTab = currentActiveTab;
-              
+
               if (deletedTabIndex < currentActiveTab) {
                 // Deleted tab is before active tab, shift active tab index down
                 newActiveTab = currentActiveTab - 1;
@@ -101,12 +101,12 @@ const TabBar = (props) => {
                   newActiveTab = deletedTabIndex;
                 }
               }
-              
+
               // Update active tab before dispatching delete
               if (newActiveTab !== currentActiveTab && newActiveTab >= 0) {
                 setActiveTab(newActiveTab);
               }
-              
+
               // Dispatch the delete action
               dispatch({
                 type: "DELETE-TODO",

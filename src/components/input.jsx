@@ -125,8 +125,8 @@ const Input = (props) => {
         onChange={
           props.onChange ||
           ((e) => {
-            // Apply trimming: remove leading spaces and replace multiple spaces with single space
-            const trimmed = e.target.value.trimStart().replace(/\s+/g, " ");
+            // Apply trimming: remove leading spaces only
+            const trimmed = e.target.value.trimStart();
             setValue(trimmed);
           })
         }

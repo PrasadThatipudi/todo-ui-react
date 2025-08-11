@@ -1,16 +1,19 @@
 const Footer = () => {
   return (
-    <div className="app-footer" style={{
-      position: 'fixed',
-      bottom: 0,
-      left: 0,
-      right: 0,
-      background: '#f8f9fa',
-      borderTop: '1px solid #e5e7eb',
-      padding: '0.75rem 2rem',
-      zIndex: 9999,
-      boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)'
-    }}>
+    <div
+      className="app-footer"
+      style={{
+        position: "fixed",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        background: "#f8f9fa",
+        borderTop: "1px solid #e5e7eb",
+        padding: "0.75rem 2rem",
+        zIndex: 9999,
+        boxShadow: "0 -2px 8px rgba(0, 0, 0, 0.1)",
+      }}
+    >
       <div className="footer-shortcuts">
         <div className="footer-shortcut">
           <span className="footer-key">Ctrl+T</span>
